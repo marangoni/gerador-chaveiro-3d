@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gerador de Chaveiros 3D - NuRIA Maker</title>
+
+    <meta
+        name="description"
+        content="Converta SVGs de chaveiros em modelos 3D, visualize no navegador e exporte em STL."
+    >
+
+    <link rel="stylesheet" href="style.css?v=0.1.0">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+
+<body>
+
+<header class="topo">
+    <div class="topo-conteudo">
+
+        <a class="marca" href="./" aria-label="Gerador de Chaveiros 3D">
+            <span class="marca-simbolo">3D</span>
+
+            <span class="marca-texto">
+                <strong>Gerador de Chaveiros 3D</strong>
+                <small>NuRIA Maker</small>
+            </span>
+        </a>
+
+        <div class="topo-status">
+            <span id="statusTopo">Aguardando SVG</span>
+            <span class="versao">v0.1.0</span>
+        </div>
+
+    </div>
+</header>
+
+
+<main class="aplicacao">
+
+    <section class="painel painel-controles">
+
+        <div class="painel-cabecalho">
+            <p class="kicker">ENTRADA</p>
+            <h1>SVG → chaveiro 3D</h1>
+            <p>
+                Carregue um SVG produzido pelos geradores de corte a laser.
+                O contorno vermelho forma a base; elementos azuis e pretos
+                podem virar detalhes em alto-relevo.
+            </p>
+        </div>
+
+
+        <div class="grupo grupo-upload">
+
+            <label class="label-bloco">
+                Arquivo SVG
+            </label>
+
+            <input
+                id="arquivoSvg"
+                type="file"
+                accept=".svg,image/svg+xml"
+                hidden
+            >
+
+            <div class="acoes-upload">
+
+                <button
+                    id="btnEscolherSvg"
+                    class="botao botao-primario"
+                    type="button"
+                >
+                    Escolher SVG
+                </button>
+
+                <button
+                    id="btnExemplo"
+                    class="botao botao-secundario"
+                    type="button"
+                >
+                    Carregar exemplo
+                </button>
+
+            </div>
+
+            <div id="arquivoInfo" class="arquivo-info">
+                Nenhum arquivo carregado.
+            </div>
+
+        </div>
+
+
+        <div class="grupo">
+
+            <div class="grupo-titulo">
+                <span>Dimensões</span>
+                <small>mm</small>
+            </div>
+
+            <div class="controle">
+                <div class="controle-cabecalho">
+                    <label for="larguraFinal">Largura final</label>
+                    <output id="larguraFinalValor">60 mm</output>
+                </div>
+
+                <div class="controle-linha">
+                    <input
+                        id="larguraFinal"
+                        type="range"
+                        min="20"
+                        max="120"
+                        step="1"
+                        value="60"
+                    >
+
+                    <input
+                        id="larguraFinalNumero"
+                        class="numero"
+                        type="number"
+                        min="20"
+                        max="120"
+                        step="1"
+                        value="60"
+                    >
+                </div>
+            </div>
+
+
+            <div class="controle">
+                <div class="controle-cabecalho">
+                    <label for="espessuraBase">Espessura da base</label>
+                    <output id="espessuraBaseValor">3,0 mm</output>
+                </div>
+
+                <div class="controle-linha">
+                    <input
+                        id="espessuraBase"
+                        type="range"
+                        min="1.5"
+                        max="6"
+                        step="0.1"
+                        value="3"
+                    >
+
+                    <input
+                        id="espessuraBaseNumero"
+                        class="numero"
+                        type="number"
+                        min="1.5"
+                        max="6"
+                        step="0.1"
+                        value="3"
+                    >
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="grupo">
+
+            <div class="grupo-titulo">
+                <span>Detalhes internos</span>
+                <small>azul / preto</small>
+            </div>
+
+            <label class="label-bloco" for="modoDetalhe">
+                Tratamento
+            </label>
+
+            <select id="modoDetalhe">
+                <option value="alto" selected>Alto-relevo</option>
+                <option value="nenhum">Ignorar detalhes</option>
+            </select>
+
+
+            <div id="controleAlturaDetalhe" class="controle controle-com-margem">
+                <div class="controle-cabecalho">
+                    <label for="alturaDetalhe">Altura do relevo</label>
+                    <output id="alturaDetalheValor">0,6 mm</output>
+                </div>
+
+                <div class="controle-linha">
+                    <input
+                        id="alturaDetalhe"
+                        type="range"
+                        min="0.2"
+                        max="2"
+                        step="0.1"
+                        value="0.6"
+                    >
+
+                    <input
+                        id="alturaDetalheNumero"
+                        class="numero"
+                        type="number"
+                        min="0.2"
+                        max="2"
+                        step="0.1"
+                        value="0.6"
+                    >
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="grupo grupo-diagnostico">
+
+            <div class="grupo-titulo">
+                <span>Leitura do SVG</span>
+                <small>automática</small>
+            </div>
+
+            <dl class="diagnostico">
+                <div>
+                    <dt>Contornos vermelhos</dt>
+                    <dd id="qtdBase">—</dd>
+                </div>
+
+                <div>
+                    <dt>Detalhes azuis</dt>
+                    <dd id="qtdAzul">—</dd>
+                </div>
+
+                <div>
+                    <dt>Detalhes pretos</dt>
+                    <dd id="qtdPreto">—</dd>
+                </div>
+
+                <div>
+                    <dt>Dimensão original</dt>
+                    <dd id="dimensaoOriginal">—</dd>
+                </div>
+            </dl>
+
+        </div>
+
+    </section>
+
+
+    <section class="painel painel-preview">
+
+        <div class="preview-cabecalho">
+
+            <div>
+                <p class="kicker">PRÉVIA</p>
+                <h2 id="tituloPreview">Chaveiro 3D</h2>
+            </div>
+
+            <button
+                id="btnCentralizar"
+                class="botao botao-pequeno"
+                type="button"
+                disabled
+            >
+                Centralizar
+            </button>
+
+        </div>
+
+
+        <div id="viewport" class="viewport">
+
+            <div id="placeholder" class="placeholder">
+                <div class="placeholder-icone">SVG</div>
+                <strong>Carregue um arquivo para começar</strong>
+                <span>
+                    Ou utilize o exemplo incluído no gerador.
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="preview-rodape">
+
+            <span>
+                Arraste para girar · roda do mouse para zoom
+            </span>
+
+            <span id="dimensaoFinal">
+                —
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <aside class="painel painel-exportacao">
+
+        <div class="painel-cabecalho">
+            <p class="kicker">EXPORTAÇÃO</p>
+            <h2>Arquivo STL</h2>
+            <p>
+                O STL é gerado a partir da mesma geometria exibida na prévia.
+            </p>
+        </div>
+
+
+        <div class="estado-exportacao">
+
+            <span class="estado-label">Estado</span>
+
+            <strong id="estadoStl">
+                Aguardando SVG
+            </strong>
+
+            <p id="mensagemStl">
+                Carregue um SVG válido para habilitar a exportação.
+            </p>
+
+        </div>
+
+
+        <div class="grupo">
+
+            <label class="label-bloco" for="nomeArquivo">
+                Nome do arquivo
+            </label>
+
+            <input
+                id="nomeArquivo"
+                class="campo-texto"
+                type="text"
+                value="chaveiro-3d"
+                spellcheck="false"
+            >
+
+        </div>
+
+
+        <div class="alerta">
+            <strong>v0.1</strong>
+            <p>
+                Esta versão trabalha melhor com contornos fechados.
+                Linhas azuis abertas podem aparecer no SVG, mas ainda não são
+                convertidas em relevo sólido.
+            </p>
+        </div>
+
+
+        <div class="acoes-exportacao">
+
+            <button
+                id="btnGerarStl"
+                class="botao botao-primario botao-grande"
+                type="button"
+                disabled
+            >
+                Gerar STL
+            </button>
+
+            <button
+                id="btnBaixarStl"
+                class="botao botao-secundario botao-grande"
+                type="button"
+                disabled
+            >
+                Baixar STL
+            </button>
+
+        </div>
+
+    </aside>
+
+</main>
+
+
+<footer class="rodape">
+    <div>
+        NuRIA Maker · Gerador de Chaveiros 3D
+    </div>
+
+    <div>
+        v0.1.0
+    </div>
+</footer>
+
+
+<script type="module" src="script.js?v=0.1.0"></script>
+
+</body>
+</html>
