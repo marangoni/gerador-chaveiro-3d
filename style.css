@@ -280,6 +280,61 @@ button {
     gap: 7px;
 }
 
+.botao-nome {
+    grid-column: 1 / -1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 39px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--laranja),
+            #f09a22
+        );
+
+    color: #ffffff;
+}
+
+.botao-nome:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #c96f00,
+            var(--laranja)
+        );
+}
+
+.fluxo-nome {
+    margin-top: 10px;
+    padding: 10px 11px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    background: #fff8ea;
+
+    border: 1px solid #ead9b6;
+    border-radius: 8px;
+}
+
+.fluxo-nome strong {
+    color: var(--vinho);
+
+    font-size: 10px;
+}
+
+.fluxo-nome span {
+    color: var(--texto-2);
+
+    font-size: 9px;
+    line-height: 1.45;
+}
+
 .botao {
     min-height: 37px;
 
@@ -1151,7 +1206,12 @@ body.modal-aberto {
 .biblioteca-preview {
     position: relative;
 
-    aspect-ratio: 16 / 9;
+    /*
+        Os chaveiros têm proporções muito diferentes:
+        quadrados, circulares, alongados e um card vertical.
+        Uma área quase quadrada evita recortes visuais.
+    */
+    aspect-ratio: 1 / 1;
 
     display: grid;
     place-items: center;
@@ -1172,9 +1232,17 @@ body.modal-aberto {
     width: 100%;
     height: 100%;
 
-    object-fit: contain;
+    display: block;
 
-    padding: 10px;
+    object-fit: contain;
+    object-position: center;
+
+    /*
+        Reserva uma margem real em volta da peça. Isso impede
+        que argolas, contornos e emojis encostem nas bordas
+        do card da biblioteca.
+    */
+    padding: 20px;
 }
 
 .biblioteca-categoria {
@@ -1336,5 +1404,146 @@ body.modal-aberto {
 
     .biblioteca-grade {
         grid-template-columns: 1fr;
+    }
+}
+
+
+.biblioteca-origem {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    margin-bottom: 8px;
+
+    color: var(--laranja);
+
+    font-size: 8px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.biblioteca-origem::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--laranja);
+}
+
+.biblioteca-gerando {
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+.biblioteca-usar .spinner {
+    display: inline-block;
+
+    width: 10px;
+    height: 10px;
+
+    margin-right: 6px;
+
+    border: 2px solid rgba(255,255,255,0.35);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+
+    animation: biblioteca-spin 0.7s linear infinite;
+}
+
+@keyframes biblioteca-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+@media (max-width: 680px) {
+    .biblioteca-preview img {
+        padding: 14px;
+    }
+}
+
+
+.biblioteca-criar-proprio {
+    padding: 12px 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff7e8,
+            #f8f0eb
+        );
+
+    border-bottom: 1px solid var(--borda);
+}
+
+.biblioteca-criar-proprio > div {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.biblioteca-criar-proprio strong {
+    color: var(--vinho);
+
+    font-size: 11px;
+}
+
+.biblioteca-criar-proprio span {
+    color: var(--texto-2);
+
+    font-size: 9px;
+    line-height: 1.4;
+}
+
+.biblioteca-criar-link {
+    flex: 0 0 auto;
+
+    min-height: 34px;
+
+    padding: 8px 11px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--laranja);
+
+    border-radius: 7px;
+
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+.biblioteca-criar-link:hover {
+    background: var(--vinho);
+}
+
+@media (max-width: 680px) {
+    .biblioteca-criar-proprio {
+        align-items: stretch;
+        flex-direction: column;
+
+        padding: 12px 17px;
+    }
+
+    .biblioteca-criar-link {
+        width: 100%;
     }
 }

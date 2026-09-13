@@ -11,7 +11,7 @@
         content="Converta SVGs de chaveiros em modelos 3D, visualize no navegador e exporte em STL."
     >
 
-    <link rel="stylesheet" href="style.css?v=0.3.1">
+    <link rel="stylesheet" href="style.css?v=0.5.4">
 
     <script type="importmap">
     {
@@ -39,7 +39,7 @@
 
         <div class="topo-status">
             <span id="statusTopo">Aguardando SVG</span>
-            <span class="versao">v0.3.1</span>
+            <span class="versao">v0.5.4</span>
         </div>
 
     </div>
@@ -89,9 +89,28 @@
                     class="botao botao-secundario"
                     type="button"
                 >
-                    Biblioteca
+                    Exemplos
                 </button>
 
+                <a
+                    class="botao botao-nome"
+                    href="https://marangoni.github.io/keychain-generator/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Abrir o gerador de chaveiros com nome"
+                >
+                    Criar meu nome
+                </a>
+
+            </div>
+
+            <div class="fluxo-nome">
+                <strong>Quer um chaveiro com seu nome?</strong>
+
+                <span>
+                    Abra o gerador de nomes, crie e baixe o SVG.
+                    Depois volte aqui e use <b>Escolher SVG</b>.
+                </span>
             </div>
 
             <div id="arquivoInfo" class="arquivo-info">
@@ -111,27 +130,29 @@
             <div class="controle">
                 <div class="controle-cabecalho">
                     <label for="larguraFinal">Largura final</label>
-                    <output id="larguraFinalValor">60 mm</output>
+                    <output id="larguraFinalValor">40 mm</output>
                 </div>
 
                 <div class="controle-linha">
                     <input
                         id="larguraFinal"
                         type="range"
+                        autocomplete="off"
                         min="20"
                         max="120"
                         step="1"
-                        value="60"
+                        value="40"
                     >
 
                     <input
                         id="larguraFinalNumero"
                         class="numero"
                         type="number"
+                        autocomplete="off"
                         min="20"
                         max="120"
                         step="1"
-                        value="60"
+                        value="40"
                     >
                 </div>
             </div>
@@ -414,13 +435,13 @@
         <header class="biblioteca-topo">
 
             <div>
-                <p class="kicker">BIBLIOTECA</p>
+                <p class="kicker">EXEMPLOS</p>
                 <h2 id="bibliotecaTitulo">
                     Exemplos de chaveiros
                 </h2>
                 <p>
-                    Escolha um modelo pronto para editar, redimensionar e
-                    transformar em STL.
+                    Escolha um modelo pronto. Os 12 exemplos de emoji já estão salvos
+                    localmente e são carregados diretamente, sem gerar novamente o SVG.
                 </p>
             </div>
 
@@ -435,6 +456,24 @@
 
         </header>
 
+
+        <div class="biblioteca-criar-proprio">
+            <div>
+                <strong>Crie um chaveiro com o seu nome</strong>
+                <span>
+                    Use o gerador de nomes do NuRIA, baixe o SVG e carregue aqui.
+                </span>
+            </div>
+
+            <a
+                href="https://marangoni.github.io/keychain-generator/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="biblioteca-criar-link"
+            >
+                Abrir gerador de nomes
+            </a>
+        </div>
 
         <div class="biblioteca-ferramentas">
 
@@ -491,12 +530,12 @@
     </div>
 
     <div>
-        v0.3.1
+        v0.5.4
     </div>
 </footer>
 
 
-<script type="module" src="script.js?v=0.3.1"></script>
+<script type="module" src="script.js?v=0.5.4"></script>
 
 </body>
 </html>

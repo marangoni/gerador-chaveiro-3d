@@ -4,7 +4,8 @@ import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
 import { STLExporter } from "three/addons/exporters/STLExporter.js";
 import polygonClipping from "https://cdn.jsdelivr.net/npm/polygon-clipping@0.15.7/+esm";
 
-const VERSION = "0.3.1";
+const VERSION = "0.5.4";
+const LARGURA_PADRAO_MM = 40;
 
 const $ = (seletor) => document.querySelector(seletor);
 
@@ -87,9 +88,66 @@ let bibliotecaBusca = "";
 */
 const cacheMiniaturas = new Map();
 
+let PathKitEmoji = null;
+let pathKitEmojiPromise = null;
+
+const PATHKIT_EMOJI_CDN =
+    "https://cdn.jsdelivr.net/npm/pathkit-wasm@1.0.0/bin/";
+
+const EMOJI_PADRAO = {
+    tamanho: 35.6,
+    outline: 2.5,
+    furo: 4.8,
+    bordaFuro: 3.0,
+    anguloArgola: -45
+};
+
 const loader = new SVGLoader();
 const exporter = new STLExporter();
 
+
+
+
+function aplicarLarguraDoExemplo(item) {
+    const largura =
+        Number(
+            item?.larguraPadrao
+        ) ||
+        (
+            item?.categoria === "Nomes"
+                ? 50
+                : LARGURA_PADRAO_MM
+        );
+
+    els.larguraFinal.value =
+        String(largura);
+
+    els.larguraFinalNumero.value =
+        String(largura);
+
+    els.larguraFinalValor.textContent =
+        `${formatarNumero(
+            largura,
+            0
+        )} mm`;
+}
+
+function aplicarLarguraPadraoInicial() {
+    /*
+        O navegador pode restaurar o valor anterior de inputs
+        após reload. Por isso o padrão de 40 mm é aplicado
+        explicitamente pelo JavaScript a cada nova abertura
+        do aplicativo.
+    */
+    els.larguraFinal.value =
+        String(LARGURA_PADRAO_MM);
+
+    els.larguraFinalNumero.value =
+        String(LARGURA_PADRAO_MM);
+
+    els.larguraFinalValor.textContent =
+        `${LARGURA_PADRAO_MM} mm`;
+}
 
 function formatarNumero(valor, casas = 1) {
     return Number(valor).toLocaleString("pt-BR", {
@@ -155,7 +213,11 @@ function categoriaPath(path) {
 
 
 function pathFechado(subPath) {
-    const pts = subPath.getPoints(48);
+    /*
+        Para descobrir se o contorno fecha não é necessário
+        discretizar cada curva em dezenas de pontos.
+    */
+    const pts = subPath.getPoints(1);
 
     if (pts.length < 3) return false;
 
@@ -163,6 +225,41 @@ function pathFechado(subPath) {
     const b = pts[pts.length - 1];
 
     return a.distanceTo(b) < 0.5;
+}
+
+
+function pontosSubPathOtimizado(subPath) {
+    /*
+        A amostragem agora é adaptativa.
+
+        SVGs de emoji podem conter dezenas ou centenas de curvas.
+        Limitamos a discretização para manter aproximadamente até
+        700 pontos por contorno, em vez de multiplicar cada curva
+        por dezenas de subdivisões.
+    */
+    const quantidadeCurvas =
+        Math.max(
+            1,
+            subPath.curves?.length ?? 1
+        );
+
+    const divisoes =
+        Math.max(
+            1,
+            Math.min(
+                10,
+                Math.floor(
+                    700 /
+                    quantidadeCurvas
+                )
+            )
+        );
+
+    return limparPontos(
+        subPath.getPoints(
+            divisoes
+        )
+    );
 }
 
 
@@ -242,7 +339,10 @@ function contornosDaCategoria(paths, categoria) {
         for (const subPath of path.subPaths) {
             if (!pathFechado(subPath)) continue;
 
-            const points = limparPontos(subPath.getPoints(72));
+            const points =
+                pontosSubPathOtimizado(
+                    subPath
+                );
 
             if (points.length < 3) continue;
 
@@ -277,14 +377,41 @@ function analisarHierarquiaContornos(contornos) {
         const atual = ordenados[i];
         const pTeste = atual.points[0];
 
-        for (let j = 0; j < i; j++) {
-            const candidato = ordenados[j];
+        let melhorPai = null;
 
-            if (pontoNoPoligono(pTeste, candidato.points)) {
-                atual.parent = candidato;
-                atual.depth = candidato.depth + 1;
-                break;
+        for (let j = 0; j < i; j++) {
+            const candidato =
+                ordenados[j];
+
+            if (
+                pontoNoPoligono(
+                    pTeste,
+                    candidato.points
+                )
+            ) {
+                /*
+                    O pai correto é o menor contorno que contém
+                    o atual. Isso preserva nesting do tipo:
+
+                    forma externa -> furo -> ilha interna.
+                */
+                if (
+                    !melhorPai ||
+                    candidato.absArea <
+                        melhorPai.absArea
+                ) {
+                    melhorPai =
+                        candidato;
+                }
             }
+        }
+
+        if (melhorPai) {
+            atual.parent =
+                melhorPai;
+
+            atual.depth =
+                melhorPai.depth + 1;
         }
     }
 
@@ -1380,6 +1507,7 @@ const SVG_EXEMPLO = `
 
 
 
+
 function normalizarBusca(texto) {
     return String(texto ?? "")
         .normalize("NFD")
@@ -1395,7 +1523,7 @@ async function carregarDadosBiblioteca() {
     }
 
     els.gradeBiblioteca.innerHTML =
-        '<div class="biblioteca-vazia">Carregando biblioteca...</div>';
+        '<div class="biblioteca-vazia">Carregando exemplos...</div>';
 
     const resposta =
         await fetch(
@@ -1407,7 +1535,7 @@ async function carregarDadosBiblioteca() {
 
     if (!resposta.ok) {
         throw new Error(
-            `Falha ao carregar a biblioteca (${resposta.status}).`
+            `Falha ao carregar os exemplos (${resposta.status}).`
         );
     }
 
@@ -1494,14 +1622,32 @@ function itensBibliotecaFiltrados() {
 
 
 
-async function miniaturaNuria(caminhoSvg) {
-    if (cacheMiniaturas.has(caminhoSvg)) {
-        return cacheMiniaturas.get(caminhoSvg);
+async function miniaturaNuria(item) {
+    const caminhoSvg =
+        item.arquivo;
+
+    if (!caminhoSvg) {
+        throw new Error(
+            "Exemplo sem arquivo SVG local."
+        );
+    }
+
+    const chaveCache =
+        `${caminhoSvg}?v=${VERSION}`;
+
+    if (
+        cacheMiniaturas.has(
+            chaveCache
+        )
+    ) {
+        return cacheMiniaturas.get(
+            chaveCache
+        );
     }
 
     const resposta =
         await fetch(
-            caminhoSvg,
+            chaveCache,
             {
                 cache: "no-store"
             }
@@ -1517,11 +1663,12 @@ async function miniaturaNuria(caminhoSvg) {
         await resposta.text();
 
     /*
-        Recolore APENAS a miniatura:
-        vermelho técnico -> vinho/marrom NuRIA
-        azul técnico      -> laranja NuRIA
+        As cores vermelho/azul continuam no arquivo real porque
+        são a convenção técnica do gerador 3D.
 
-        O arquivo carregado no gerador permanece intocado.
+        Somente a miniatura é recolorida:
+        vermelho -> vinho NuRIA
+        azul/preto -> laranja NuRIA
     */
     svg = svg
         .replace(
@@ -1547,6 +1694,14 @@ async function miniaturaNuria(caminhoSvg) {
         .replace(
             /rgb\(\s*0\s*,\s*0\s*,\s*255\s*\)/gi,
             "#E17D01"
+        )
+        .replace(
+            /#000000/gi,
+            "#E17D01"
+        )
+        .replace(
+            /#000\b/gi,
+            "#E17D01"
         );
 
     const blob =
@@ -1561,16 +1716,15 @@ async function miniaturaNuria(caminhoSvg) {
         URL.createObjectURL(blob);
 
     cacheMiniaturas.set(
-        caminhoSvg,
+        chaveCache,
         url
     );
 
     return url;
 }
 
-
-function aplicarMiniaturaNuria(img, caminhoSvg) {
-    miniaturaNuria(caminhoSvg)
+function aplicarMiniaturaNuria(img, item) {
+    miniaturaNuria(item)
         .then(
             url => {
                 img.src = url;
@@ -1581,7 +1735,7 @@ function aplicarMiniaturaNuria(img, caminhoSvg) {
                 console.warn(erro);
 
                 // Fallback: usa o SVG original.
-                img.src = caminhoSvg;
+                img.src = item.arquivo;
             }
         );
 }
@@ -1624,7 +1778,7 @@ function renderizarBiblioteca() {
             <div class="biblioteca-preview">
                 <img
                     src=""
-                    data-arquivo-svg="${item.arquivo}"
+                    data-arquivo-svg="${item.arquivo ?? item.fonteSvg ?? ""}"
                     alt="${item.nome}"
                     loading="lazy"
                 >
@@ -1636,6 +1790,16 @@ function renderizarBiblioteca() {
 
             <div class="biblioteca-card-conteudo">
                 <h3>${item.nome}</h3>
+
+                ${
+                    item.categoria === "Emojis"
+                        ? `
+                            <div class="biblioteca-origem">
+                                Exemplo SVG NuRIA
+                            </div>
+                        `
+                        : ""
+                }
 
                 <p>${item.descricao}</p>
 
@@ -1666,7 +1830,7 @@ function renderizarBiblioteca() {
 
         aplicarMiniaturaNuria(
             imgPreview,
-            item.arquivo
+            item
         );
 
         els.gradeBiblioteca.appendChild(
@@ -1703,7 +1867,7 @@ async function abrirBiblioteca() {
 
         els.bibliotecaVazia.hidden = false;
         els.bibliotecaVazia.textContent =
-            "Não foi possível carregar a biblioteca. " +
+            "Não foi possível carregar os exemplos. " +
             "Execute o projeto por um servidor HTTP local.";
     }
 }
@@ -1723,10 +1887,45 @@ function fecharBiblioteca() {
 
 
 async function usarItemBiblioteca(item) {
+    const botao =
+        Array.from(
+            els.gradeBiblioteca
+                .querySelectorAll(
+                    ".biblioteca-usar"
+                )
+        )
+        .find(
+            b =>
+                b.closest(
+                    ".biblioteca-card"
+                )
+                ?.querySelector("h3")
+                ?.textContent ===
+                item.nome
+        );
+
+    const textoOriginal =
+        botao?.textContent;
+
     try {
+        if (botao) {
+            botao.disabled = true;
+            botao.innerHTML =
+                '<span class="spinner"></span>Carregando...';
+        }
+
+        if (!item.arquivo) {
+            throw new Error(
+                "Este exemplo não possui um SVG local."
+            );
+        }
+
+        const urlArquivo =
+            `${item.arquivo}?v=${VERSION}`;
+
         const resposta =
             await fetch(
-                item.arquivo,
+                urlArquivo,
                 {
                     cache: "no-store"
                 }
@@ -1751,29 +1950,46 @@ async function usarItemBiblioteca(item) {
                 els.letrasFuradas.checked
             );
 
-        els.modoDetalhe.value = "alto";
+        els.modoDetalhe.value =
+            "alto";
 
         els.controleAlturaDetalhe.hidden =
             false;
 
+        aplicarLarguraDoExemplo(
+            item
+        );
+
         processarSvg(
             svg,
-            item.arquivo.split("/").pop()
+            item.arquivo
+                .split("/")
+                .pop()
         );
 
         fecharBiblioteca();
 
         els.statusTopo.textContent =
-            `Biblioteca · ${item.nome}`;
+            `Exemplos · ${item.nome}`;
     } catch (erro) {
         console.error(erro);
 
-        els.bibliotecaVazia.hidden = false;
+        els.bibliotecaVazia.hidden =
+            false;
+
         els.bibliotecaVazia.textContent =
             erro?.message ||
             "Não foi possível carregar o exemplo.";
+    } finally {
+        if (botao) {
+            botao.disabled = false;
+            botao.textContent =
+                textoOriginal ||
+                "Usar este modelo";
+        }
     }
 }
+
 
 function registrarEventos() {
     els.btnEscolherSvg.addEventListener(
@@ -1926,6 +2142,13 @@ function registrarEventos() {
 
 
 function iniciar() {
+    /*
+        40 mm é o tamanho inicial oficial do chaveiro.
+        Aplicamos antes dos listeners para impedir que valores
+        restaurados pelo navegador (ex.: 60 mm) prevaleçam.
+    */
+    aplicarLarguraPadraoInicial();
+
     inicializarThree();
     registrarEventos();
 

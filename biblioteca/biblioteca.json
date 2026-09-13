@@ -1,401 +1,395 @@
 {
-  "versao": 1,
+  "versao": 11,
   "titulo": "Biblioteca de Chaveiros 3D",
-  "total": 30,
+  "total": 24,
   "categorias": [
     "Todos",
     "Nomes",
-    "Emojis",
-    "Maker",
-    "Personagens"
+    "Emojis"
   ],
   "itens": [
     {
-      "id": "nome-ana",
-      "nome": "Ana",
+      "id": "nome-exemplo-01",
+      "nome": "Cleo",
       "categoria": "Nomes",
-      "arquivo": "biblioteca/nomes/ana.svg",
+      "arquivo": "biblioteca/nomes/cleo.svg",
       "tags": [
         "nome",
         "texto",
-        "personalizado"
+        "personalizado",
+        "cleo"
       ],
-      "descricao": "Exemplo com o nome Ana convertido integralmente em paths.",
-      "furado": false
+      "descricao": "Exemplo pronto de chaveiro com o nome Cleo.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 50
     },
     {
-      "id": "nome-davi",
-      "nome": "Davi",
+      "id": "nome-exemplo-02",
+      "nome": "Pitoco",
       "categoria": "Nomes",
-      "arquivo": "biblioteca/nomes/davi.svg",
+      "arquivo": "biblioteca/nomes/pitoco.svg",
       "tags": [
         "nome",
         "texto",
-        "personalizado"
+        "personalizado",
+        "pitoco"
       ],
-      "descricao": "Exemplo com o nome Davi convertido integralmente em paths.",
-      "furado": false
+      "descricao": "Exemplo pronto de chaveiro com o nome Pitoco.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 50
     },
     {
-      "id": "nome-felix",
-      "nome": "Felix",
-      "categoria": "Nomes",
-      "arquivo": "biblioteca/nomes/felix.svg",
-      "tags": [
-        "nome",
-        "texto",
-        "personalizado"
-      ],
-      "descricao": "Exemplo com o nome Felix convertido integralmente em paths.",
-      "furado": false
-    },
-    {
-      "id": "nome-lucas",
-      "nome": "Lucas",
-      "categoria": "Nomes",
-      "arquivo": "biblioteca/nomes/lucas.svg",
-      "tags": [
-        "nome",
-        "texto",
-        "personalizado"
-      ],
-      "descricao": "Exemplo com o nome Lucas convertido integralmente em paths.",
-      "furado": false
-    },
-    {
-      "id": "nome-maria",
-      "nome": "Maria",
-      "categoria": "Nomes",
-      "arquivo": "biblioteca/nomes/maria.svg",
-      "tags": [
-        "nome",
-        "texto",
-        "personalizado"
-      ],
-      "descricao": "Exemplo com o nome Maria convertido integralmente em paths.",
-      "furado": false
-    },
-    {
-      "id": "nome-pedro",
+      "id": "nome-exemplo-03",
       "nome": "Pedro",
       "categoria": "Nomes",
-      "arquivo": "biblioteca/nomes/pedro.svg",
+      "arquivo": "biblioteca/nomes/pedro-v2.svg",
       "tags": [
         "nome",
         "texto",
-        "personalizado"
+        "personalizado",
+        "pedro"
       ],
-      "descricao": "Exemplo com o nome Pedro convertido integralmente em paths.",
-      "furado": false
+      "descricao": "Exemplo pronto de chaveiro com o nome Pedro.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 50
     },
     {
-      "id": "nome-sofia",
-      "nome": "Sofia",
+      "id": "nome-exemplo-04",
+      "nome": "Luiz",
       "categoria": "Nomes",
-      "arquivo": "biblioteca/nomes/sofia.svg",
+      "arquivo": "biblioteca/nomes/luiz.svg",
       "tags": [
         "nome",
         "texto",
-        "personalizado"
+        "personalizado",
+        "luiz"
       ],
-      "descricao": "Exemplo com o nome Sofia convertido integralmente em paths.",
-      "furado": false
+      "descricao": "Exemplo pronto de chaveiro com o nome Luiz.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 50
     },
     {
-      "id": "nome-gabriel",
-      "nome": "Gabriel",
+      "id": "nome-exemplo-05",
+      "nome": "Jarbas",
       "categoria": "Nomes",
-      "arquivo": "biblioteca/nomes/gabriel.svg",
+      "arquivo": "biblioteca/nomes/jarbas.svg",
       "tags": [
         "nome",
         "texto",
-        "personalizado"
+        "personalizado",
+        "jarbas"
       ],
-      "descricao": "Exemplo com o nome Gabriel convertido integralmente em paths.",
-      "furado": false
+      "descricao": "Exemplo pronto de chaveiro com o nome Jarbas.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 50
     },
     {
-      "id": "emoji-sorriso",
-      "nome": "Sorriso",
-      "categoria": "Emojis",
-      "arquivo": "biblioteca/emojis/sorriso.svg",
+      "id": "nome-exemplo-06",
+      "nome": "Felix",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/felix-v2.svg",
       "tags": [
-        "emoji",
-        "feliz",
-        "rosto"
+        "nome",
+        "texto",
+        "personalizado",
+        "felix"
       ],
-      "descricao": "Emoji circular simples, ótimo para alto-relevo.",
-      "furado": false
+      "descricao": "Exemplo pronto de chaveiro com o nome Felix.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 50
     },
     {
-      "id": "emoji-coracao",
-      "nome": "Coração",
-      "categoria": "Emojis",
-      "arquivo": "biblioteca/emojis/coracao.svg",
+      "id": "nome-exemplo-07",
+      "nome": "João",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/joao.svg",
       "tags": [
-        "emoji",
-        "amor",
-        "coracao"
+        "nome",
+        "texto",
+        "personalizado",
+        "joão"
       ],
-      "descricao": "Coração clássico para relevo ou vazado.",
-      "furado": true
+      "descricao": "Exemplo pronto de chaveiro com o nome João.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 50
     },
     {
-      "id": "emoji-estrela",
-      "nome": "Estrela",
-      "categoria": "Emojis",
-      "arquivo": "biblioteca/emojis/estrela.svg",
+      "id": "nome-exemplo-08",
+      "nome": "Maria",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/maria-v2.svg",
       "tags": [
-        "emoji",
-        "estrela",
-        "favorito"
+        "nome",
+        "texto",
+        "personalizado",
+        "maria"
       ],
-      "descricao": "Estrela de cinco pontas.",
-      "furado": true
+      "descricao": "Exemplo pronto de chaveiro com o nome Maria.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 50
     },
     {
-      "id": "emoji-sol",
-      "nome": "Sol",
-      "categoria": "Emojis",
-      "arquivo": "biblioteca/emojis/sol.svg",
+      "id": "nome-exemplo-09",
+      "nome": "Ernesto",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/ernesto.svg",
       "tags": [
-        "emoji",
-        "sol",
-        "dia"
+        "nome",
+        "texto",
+        "personalizado",
+        "ernesto"
       ],
-      "descricao": "Sol estilizado com oito raios.",
-      "furado": false
+      "descricao": "Exemplo pronto de chaveiro com o nome Ernesto.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 50
     },
     {
-      "id": "emoji-lua",
-      "nome": "Lua",
-      "categoria": "Emojis",
-      "arquivo": "biblioteca/emojis/lua.svg",
+      "id": "nome-exemplo-10",
+      "nome": "Severo",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/severo.svg",
       "tags": [
-        "emoji",
-        "lua",
-        "noite"
+        "nome",
+        "texto",
+        "personalizado",
+        "severo"
       ],
-      "descricao": "Lua crescente estilizada.",
-      "furado": true
+      "descricao": "Exemplo pronto de chaveiro com o nome Severo.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 50
     },
     {
-      "id": "emoji-musica",
-      "nome": "Música",
+      "id": "nome-exemplo-11",
+      "nome": "Antonio",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/antonio.svg",
+      "tags": [
+        "nome",
+        "texto",
+        "personalizado",
+        "antonio"
+      ],
+      "descricao": "Exemplo pronto de chaveiro com o nome Antonio.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 50
+    },
+    {
+      "id": "nome-exemplo-12",
+      "nome": "Jo",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/jo.svg",
+      "tags": [
+        "nome",
+        "texto",
+        "personalizado",
+        "jo"
+      ],
+      "descricao": "Exemplo pronto de chaveiro com o nome Jo.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 50
+    },
+    {
+      "id": "emoji-exemplo-01",
+      "nome": "Microfone",
       "categoria": "Emojis",
-      "arquivo": "biblioteca/emojis/musica.svg",
+      "arquivo": "biblioteca/emojis-exemplos/microfone.svg",
       "tags": [
         "emoji",
         "musica",
-        "nota"
+        "microfone"
       ],
-      "descricao": "Notas musicais estilizadas.",
-      "furado": false
+      "descricao": "Exemplo pronto gerado pelo Gerador de Emojis SVG do NuRIA.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 40
     },
     {
-      "id": "emoji-raio",
-      "nome": "Raio",
+      "id": "emoji-exemplo-02",
+      "nome": "Dado",
       "categoria": "Emojis",
-      "arquivo": "biblioteca/emojis/raio.svg",
+      "arquivo": "biblioteca/emojis-exemplos/dado.svg",
       "tags": [
         "emoji",
-        "energia",
-        "raio"
+        "jogo",
+        "dado"
       ],
-      "descricao": "Símbolo de energia em formato de raio.",
-      "furado": true
+      "descricao": "Exemplo pronto gerado pelo Gerador de Emojis SVG do NuRIA.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 40
     },
     {
-      "id": "emoji-bola",
-      "nome": "Bola",
+      "id": "emoji-exemplo-03",
+      "nome": "Basquete",
       "categoria": "Emojis",
-      "arquivo": "biblioteca/emojis/bola.svg",
+      "arquivo": "biblioteca/emojis-exemplos/basquete.svg",
       "tags": [
         "emoji",
         "esporte",
-        "bola"
+        "basquete"
       ],
-      "descricao": "Bola esportiva estilizada.",
-      "furado": false
+      "descricao": "Exemplo pronto gerado pelo Gerador de Emojis SVG do NuRIA.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 40
     },
     {
-      "id": "emoji-flor",
-      "nome": "Flor",
+      "id": "emoji-exemplo-04",
+      "nome": "Controle de game",
       "categoria": "Emojis",
-      "arquivo": "biblioteca/emojis/flor.svg",
+      "arquivo": "biblioteca/emojis-exemplos/controle-game.svg",
       "tags": [
         "emoji",
-        "flor",
-        "natureza"
+        "game",
+        "controle",
+        "videogame"
       ],
-      "descricao": "Flor geométrica com seis pétalas.",
-      "furado": false
+      "descricao": "Exemplo pronto de controle de videogame gerado pelo Gerador de Emojis SVG do NuRIA.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 40
     },
     {
-      "id": "emoji-cafe",
-      "nome": "Café",
+      "id": "emoji-exemplo-05",
+      "nome": "Melancia",
       "categoria": "Emojis",
-      "arquivo": "biblioteca/emojis/cafe.svg",
+      "arquivo": "biblioteca/emojis-exemplos/melancia.svg",
       "tags": [
         "emoji",
-        "cafe",
-        "caneca"
+        "comida",
+        "melancia"
       ],
-      "descricao": "Caneca de café estilizada.",
-      "furado": false
+      "descricao": "Exemplo pronto gerado pelo Gerador de Emojis SVG do NuRIA.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 40
     },
     {
-      "id": "maker-engrenagem",
-      "nome": "Engrenagem",
-      "categoria": "Maker",
-      "arquivo": "biblioteca/maker/engrenagem.svg",
+      "id": "emoji-exemplo-06",
+      "nome": "Caracol",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis-exemplos/caracol.svg",
       "tags": [
-        "maker",
-        "engrenagem",
-        "mecanica"
+        "emoji",
+        "animal",
+        "caracol"
       ],
-      "descricao": "Engrenagem para projetos de automação.",
-      "furado": true
+      "descricao": "Exemplo pronto gerado pelo Gerador de Emojis SVG do NuRIA.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 40
     },
     {
-      "id": "maker-chave",
-      "nome": "Chave de Boca",
-      "categoria": "Maker",
-      "arquivo": "biblioteca/maker/chave.svg",
+      "id": "emoji-exemplo-07",
+      "nome": "Galinha",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis-exemplos/galinha.svg",
       "tags": [
-        "maker",
-        "ferramenta",
-        "chave"
+        "emoji",
+        "animal",
+        "galinha"
       ],
-      "descricao": "Ícone de ferramenta para laboratório Maker.",
-      "furado": false
+      "descricao": "Exemplo pronto gerado pelo Gerador de Emojis SVG do NuRIA.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 40
     },
     {
-      "id": "maker-circuito",
-      "nome": "Circuito",
-      "categoria": "Maker",
-      "arquivo": "biblioteca/maker/circuito.svg",
+      "id": "emoji-exemplo-08",
+      "nome": "Cachorro",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis-exemplos/cachorro.svg",
       "tags": [
-        "maker",
-        "eletronica",
-        "circuito"
+        "emoji",
+        "animal",
+        "cachorro"
       ],
-      "descricao": "Circuito integrado estilizado.",
-      "furado": false
+      "descricao": "Exemplo pronto gerado pelo Gerador de Emojis SVG do NuRIA.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 40
     },
     {
-      "id": "maker-cubo3d",
-      "nome": "Cubo 3D",
-      "categoria": "Maker",
-      "arquivo": "biblioteca/maker/cubo3d.svg",
+      "id": "emoji-exemplo-09",
+      "nome": "Gato apaixonado",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis-exemplos/gato-coracoes.svg",
       "tags": [
-        "maker",
-        "3d",
-        "cubo"
+        "emoji",
+        "gato",
+        "coracao",
+        "amor"
       ],
-      "descricao": "Símbolo de modelagem e impressão 3D.",
-      "furado": false
+      "descricao": "Exemplo pronto gerado pelo Gerador de Emojis SVG do NuRIA.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 40
     },
     {
-      "id": "maker-martelo",
-      "nome": "Martelo",
-      "categoria": "Maker",
-      "arquivo": "biblioteca/maker/martelo.svg",
+      "id": "emoji-exemplo-10",
+      "nome": "Rosto com corações",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis-exemplos/rosto-coracoes.svg",
       "tags": [
-        "maker",
-        "ferramenta",
-        "martelo"
+        "emoji",
+        "rosto",
+        "coracao",
+        "amor"
       ],
-      "descricao": "Martelo estilizado para projetos Maker.",
-      "furado": false
+      "descricao": "Exemplo pronto gerado pelo Gerador de Emojis SVG do NuRIA.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 40
     },
     {
-      "id": "maker-pcb",
-      "nome": "Placa PCB",
-      "categoria": "Maker",
-      "arquivo": "biblioteca/maker/pcb.svg",
+      "id": "emoji-exemplo-11",
+      "nome": "Olhos de estrela",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis-exemplos/olhos-estrela.svg",
       "tags": [
-        "maker",
-        "pcb",
-        "eletronica"
+        "emoji",
+        "rosto",
+        "estrela"
       ],
-      "descricao": "Placa eletrônica estilizada.",
-      "furado": false
+      "descricao": "Exemplo pronto gerado pelo Gerador de Emojis SVG do NuRIA.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 40
     },
     {
-      "id": "personagem-alien",
-      "nome": "Alien",
-      "categoria": "Personagens",
-      "arquivo": "biblioteca/personagens/alien.svg",
+      "id": "emoji-exemplo-12",
+      "nome": "Gato sorridente",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis-exemplos/gato-sorridente.svg",
       "tags": [
-        "personagem",
-        "alien",
-        "espaco"
+        "emoji",
+        "gato",
+        "sorriso"
       ],
-      "descricao": "Personagem alienígena original.",
-      "furado": false
-    },
-    {
-      "id": "personagem-fantasma",
-      "nome": "Fantasma",
-      "categoria": "Personagens",
-      "arquivo": "biblioteca/personagens/fantasma.svg",
-      "tags": [
-        "personagem",
-        "fantasma"
-      ],
-      "descricao": "Fantasma geométrico original.",
-      "furado": false
-    },
-    {
-      "id": "personagem-monstrinho",
-      "nome": "Monstrinho",
-      "categoria": "Personagens",
-      "arquivo": "biblioteca/personagens/monstrinho.svg",
-      "tags": [
-        "personagem",
-        "monstro"
-      ],
-      "descricao": "Monstrinho com chifres, criado para a biblioteca.",
-      "furado": false
-    },
-    {
-      "id": "personagem-dinossauro",
-      "nome": "Dinossauro",
-      "categoria": "Personagens",
-      "arquivo": "biblioteca/personagens/dinossauro.svg",
-      "tags": [
-        "personagem",
-        "dinossauro"
-      ],
-      "descricao": "Dinossauro estilizado original.",
-      "furado": false
-    },
-    {
-      "id": "personagem-raposa",
-      "nome": "Raposa",
-      "categoria": "Personagens",
-      "arquivo": "biblioteca/personagens/raposa.svg",
-      "tags": [
-        "personagem",
-        "raposa",
-        "animal"
-      ],
-      "descricao": "Rosto de raposa geométrico.",
-      "furado": false
-    },
-    {
-      "id": "personagem-astronauta",
-      "nome": "Astronauta",
-      "categoria": "Personagens",
-      "arquivo": "biblioteca/personagens/astronauta.svg",
-      "tags": [
-        "personagem",
-        "astronauta",
-        "espaco"
-      ],
-      "descricao": "Capacete de astronauta original.",
-      "furado": false
+      "descricao": "Exemplo pronto gerado pelo Gerador de Emojis SVG do NuRIA.",
+      "furado": false,
+      "origem": "exemplo-local",
+      "larguraPadrao": 40
     }
-  ]
+  ],
+  "notas": {
+    "emojis": "A categoria Emojis usa 12 SVGs locais prontos, selecionados pelo usuário. Nenhum emoji é gerado ou baixado dinamicamente ao abrir a biblioteca.",
+    "nomes": "12 SVGs locais de nomes fornecidos pelo usuário, já convertidos em paths.",
+    "largurasPadrao": "Nomes: 50 mm. Emojis: 40 mm. A largura é aplicada automaticamente quando um exemplo é selecionado.",
+    "cacheBiblioteca": "Arquivos substituídos usam novo nome de arquivo e todos os SVGs da biblioteca são buscados com cache-busting por versão.",
+    "categorias": "A biblioteca pública contém apenas Nomes e Emojis.",
+    "criterioBiblioteca": "A biblioteca prioriza exemplos simples, visualmente fortes e robustos para impressão 3D em pequena escala."
+  }
 }

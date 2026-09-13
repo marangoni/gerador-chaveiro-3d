@@ -1,118 +1,65 @@
 # Gerador de Chaveiros 3D — NuRIA Maker
 
-Versão `v0.3.1`.
+Versão `v0.5.4`.
 
+## Exemplos
 
-## Ajustes da v0.3.1
+Na interface, o nome **Biblioteca** foi substituído por **Exemplos**.
 
-- corrigido o layout da biblioteca quando **Todos** exibe muitos modelos;
-- os cards agora mantêm sua altura natural e a grade usa rolagem vertical;
-- miniaturas recoloridas para a identidade NuRIA:
-  - vinho/marrom `#531C33`;
-  - laranja `#E17D01`;
-- os SVGs originais continuam em vermelho/azul internamente, preservando a convenção técnica usada pelo gerador.
-
-## Biblioteca de exemplos
-
-A versão 0.3 adiciona uma biblioteca integrada com **30 modelos**.
-
-Distribuição inicial:
-
-- 8 nomes;
-- 10 emojis e símbolos afetivos;
-- 6 ícones Maker;
-- 6 personagens originais.
-
-Os exemplos são arquivos SVG reais armazenados em `biblioteca/` e descritos
-por `biblioteca/biblioteca.json`.
-
-## Como funciona
+Os modelos continuam organizados em:
 
 ```text
-Biblioteca
-→ filtro / busca
-→ selecionar modelo
-→ carregar SVG
-→ prévia 3D
-→ ajustar dimensões
-→ relevo ou vazado
+Todos | Nomes | Emojis
+```
+
+## Criar um chaveiro com o próprio nome
+
+Foi adicionada uma integração direta com:
+
+```text
+https://marangoni.github.io/keychain-generator/
+```
+
+O fluxo para o estudante é:
+
+```text
+Criar meu nome
+→ abrir o gerador de nomes
+→ criar o chaveiro
+→ baixar o SVG
+→ voltar ao Gerador de Chaveiros 3D
+→ Escolher SVG
 → gerar STL
 ```
 
-O botão **Biblioteca** abre uma galeria com:
+O link aparece em dois locais:
 
-- miniatura do próprio SVG;
-- nome;
-- categoria;
-- tags;
-- campo de busca;
-- filtros de categoria;
-- botão **Usar este modelo**.
+- no painel principal, junto de `Escolher SVG` e `Exemplos`;
+- dentro da janela de `Exemplos`.
 
-## Estrutura
+O gerador de nomes abre em uma nova aba para que o aluno não perca o trabalho
+atual no gerador 3D.
+
+## Padrões atuais
 
 ```text
-gerador-chaveiro-3d-v0.3.0/
-├── index.html
-├── style.css
-├── script.js
-├── README.md
-├── exemplos/
-│   └── chaveiro-david.svg
-└── biblioteca/
-    ├── biblioteca.json
-    ├── nomes/
-    ├── emojis/
-    ├── maker/
-    └── personagens/
+Nomes: 50 mm
+Emojis: 40 mm
+Base: 1,5 mm
+Relevo: 0,5 mm
 ```
-
-## Compatibilidade
-
-Todos os modelos da biblioteca foram criados com a convenção:
-
-- vermelho: base do chaveiro;
-- azul: desenho interno;
-- sem elementos `<text>` nos exemplos de nomes;
-- nomes já convertidos para paths.
-
-Isso permite usar os exemplos tanto em alto-relevo quanto, quando adequado,
-como recortes passantes.
-
-## Valores padrão
-
-- espessura da base: **1,5 mm**;
-- relevo: **0,5 mm**;
-- largura: **60 mm**.
-
-O ajuste de largura atua apenas em X e Y. O eixo Z não é redimensionado.
 
 ## Teste local
 
 ```bash
-cd gerador-chaveiro-3d-v0.3.0
-python3 -m http.server 8006 > servidor.log 2>&1 &
+cd gerador-chaveiro-3d-v0.5.4
+python3 -m http.server 8007 > servidor.log 2>&1 &
 ```
 
-Abra:
+Teste:
 
-```text
-http://localhost:8006
-```
-
-## Teste recomendado
-
-1. Clique em **Biblioteca**.
-2. Teste a busca por `Maria`.
-3. Carregue um nome.
-4. Volte à biblioteca e filtre **Emojis**.
-5. Carregue `Coração`.
-6. Marque/desmarque **Letras furadas**.
-7. Gere o STL de um dos modelos.
-
-## Observação sobre personagens conhecidos
-
-A biblioteca inicial usa personagens originais e ícones genéricos. Isso mantém
-o repositório público independente de artes protegidas por terceiros.
-Arquivos de personagens externos continuam podendo ser carregados manualmente
-quando forem compatíveis com o gerador.
+1. confirme o botão `Exemplos`;
+2. clique em `Criar meu nome`;
+3. confirme que o gerador de nomes abre em nova aba;
+4. baixe um SVG pelo gerador de nomes;
+5. volte e carregue em `Escolher SVG`.
