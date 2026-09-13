@@ -1,44 +1,48 @@
 # Gerador de Chaveiros 3D — NuRIA Maker
 
-Versão `v0.5.4`.
+Versão `v0.5.5`.
 
-## Exemplos
+## Criar o próprio chaveiro
 
-Na interface, o nome **Biblioteca** foi substituído por **Exemplos**.
+O gerador 3D agora oferece acesso direto aos dois geradores SVG do NuRIA:
 
-Os modelos continuam organizados em:
-
-```text
-Todos | Nomes | Emojis
-```
-
-## Criar um chaveiro com o próprio nome
-
-Foi adicionada uma integração direta com:
+### Chaveiros com nome
 
 ```text
 https://marangoni.github.io/keychain-generator/
 ```
 
-O fluxo para o estudante é:
+### Chaveiros com emoji
 
 ```text
-Criar meu nome
-→ abrir o gerador de nomes
-→ criar o chaveiro
+https://marangoni.github.io/keychain-emoji-generator/
+```
+
+O fluxo para o estudante fica:
+
+```text
+Criar meu nome / Criar meu emoji
+→ gerar o SVG
 → baixar o SVG
 → voltar ao Gerador de Chaveiros 3D
 → Escolher SVG
 → gerar STL
 ```
 
-O link aparece em dois locais:
+Os dois links aparecem:
 
-- no painel principal, junto de `Escolher SVG` e `Exemplos`;
-- dentro da janela de `Exemplos`.
+- no painel principal;
+- dentro da janela **Exemplos**.
 
-O gerador de nomes abre em uma nova aba para que o aluno não perca o trabalho
-atual no gerador 3D.
+Os geradores abrem em nova aba, preservando o trabalho atual no gerador 3D.
+
+## Exemplos
+
+A biblioteca continua enxuta e curada:
+
+```text
+Todos | Nomes | Emojis
+```
 
 ## Padrões atuais
 
@@ -52,14 +56,14 @@ Relevo: 0,5 mm
 ## Teste local
 
 ```bash
-cd gerador-chaveiro-3d-v0.5.4
+cd gerador-chaveiro-3d-v0.5.5
 python3 -m http.server 8007 > servidor.log 2>&1 &
 ```
 
-Teste:
+Teste recomendado:
 
-1. confirme o botão `Exemplos`;
-2. clique em `Criar meu nome`;
-3. confirme que o gerador de nomes abre em nova aba;
-4. baixe um SVG pelo gerador de nomes;
-5. volte e carregue em `Escolher SVG`.
+1. clique em **Criar meu nome**;
+2. confirme abertura do gerador de nomes em nova aba;
+3. clique em **Criar meu emoji**;
+4. confirme abertura do gerador de emojis em nova aba;
+5. gere um SVG em qualquer um deles e carregue em **Escolher SVG**.

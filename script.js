@@ -4,7 +4,7 @@ import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
 import { STLExporter } from "three/addons/exporters/STLExporter.js";
 import polygonClipping from "https://cdn.jsdelivr.net/npm/polygon-clipping@0.15.7/+esm";
 
-const VERSION = "0.5.4";
+const VERSION = "0.5.5";
 const LARGURA_PADRAO_MM = 40;
 
 const $ = (seletor) => document.querySelector(seletor);

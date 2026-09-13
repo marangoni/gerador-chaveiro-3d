@@ -11,7 +11,7 @@
         content="Converta SVGs de chaveiros em modelos 3D, visualize no navegador e exporte em STL."
     >
 
-    <link rel="stylesheet" href="style.css?v=0.5.4">
+    <link rel="stylesheet" href="style.css?v=0.5.5">
 
     <script type="importmap">
     {
@@ -39,7 +39,7 @@
 
         <div class="topo-status">
             <span id="statusTopo">Aguardando SVG</span>
-            <span class="versao">v0.5.4</span>
+            <span class="versao">v0.5.5</span>
         </div>
 
     </div>
@@ -93,7 +93,7 @@
                 </button>
 
                 <a
-                    class="botao botao-nome"
+                    class="botao botao-criador botao-nome"
                     href="https://marangoni.github.io/keychain-generator/"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -102,14 +102,24 @@
                     Criar meu nome
                 </a>
 
+                <a
+                    class="botao botao-criador botao-emoji"
+                    href="https://marangoni.github.io/keychain-emoji-generator/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Abrir o gerador de chaveiros com emoji"
+                >
+                    Criar meu emoji
+                </a>
+
             </div>
 
-            <div class="fluxo-nome">
-                <strong>Quer um chaveiro com seu nome?</strong>
+            <div class="fluxo-criacao">
+                <strong>Quer criar seu próprio chaveiro?</strong>
 
                 <span>
-                    Abra o gerador de nomes, crie e baixe o SVG.
-                    Depois volte aqui e use <b>Escolher SVG</b>.
+                    Use o gerador de nomes ou de emojis, baixe o SVG e depois
+                    volte aqui em <b>Escolher SVG</b> para transformar em 3D.
                 </span>
             </div>
 
@@ -459,20 +469,31 @@
 
         <div class="biblioteca-criar-proprio">
             <div>
-                <strong>Crie um chaveiro com o seu nome</strong>
+                <strong>Crie seu próprio chaveiro</strong>
                 <span>
-                    Use o gerador de nomes do NuRIA, baixe o SVG e carregue aqui.
+                    Gere um SVG com nome ou emoji e depois carregue no gerador 3D.
                 </span>
             </div>
 
-            <a
-                href="https://marangoni.github.io/keychain-generator/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="biblioteca-criar-link"
-            >
-                Abrir gerador de nomes
-            </a>
+            <div class="biblioteca-criar-acoes">
+                <a
+                    href="https://marangoni.github.io/keychain-generator/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="biblioteca-criar-link"
+                >
+                    Gerador de nomes
+                </a>
+
+                <a
+                    href="https://marangoni.github.io/keychain-emoji-generator/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="biblioteca-criar-link biblioteca-criar-link-emoji"
+                >
+                    Gerador de emojis
+                </a>
+            </div>
         </div>
 
         <div class="biblioteca-ferramentas">
@@ -530,12 +551,12 @@
     </div>
 
     <div>
-        v0.5.4
+        v0.5.5
     </div>
 </footer>
 
 
-<script type="module" src="script.js?v=0.5.4"></script>
+<script type="module" src="script.js?v=0.5.5"></script>
 
 </body>
 </html>

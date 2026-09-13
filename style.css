@@ -280,23 +280,23 @@ button {
     gap: 7px;
 }
 
-.botao-nome {
-    grid-column: 1 / -1;
-
+.botao-criador {
     display: flex;
     align-items: center;
     justify-content: center;
 
     min-height: 39px;
 
+    color: #ffffff;
+}
+
+.botao-nome {
     background:
         linear-gradient(
             135deg,
             var(--laranja),
             #f09a22
         );
-
-    color: #ffffff;
 }
 
 .botao-nome:hover {
@@ -308,7 +308,25 @@ button {
         );
 }
 
-.fluxo-nome {
+.botao-emoji {
+    background:
+        linear-gradient(
+            135deg,
+            var(--vinho),
+            var(--vinho-claro)
+        );
+}
+
+.botao-emoji:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #3f1426,
+            var(--vinho)
+        );
+}
+
+.fluxo-criacao {
     margin-top: 10px;
     padding: 10px 11px;
 
@@ -322,13 +340,13 @@ button {
     border-radius: 8px;
 }
 
-.fluxo-nome strong {
+.fluxo-criacao strong {
     color: var(--vinho);
 
     font-size: 10px;
 }
 
-.fluxo-nome span {
+.fluxo-criacao span {
     color: var(--texto-2);
 
     font-size: 9px;
@@ -1544,6 +1562,34 @@ body.modal-aberto {
     }
 
     .biblioteca-criar-link {
+        width: 100%;
+    }
+}
+
+
+.biblioteca-criar-acoes {
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.biblioteca-criar-link-emoji {
+    background: var(--vinho);
+}
+
+.biblioteca-criar-link-emoji:hover {
+    background: var(--laranja);
+}
+
+@media (max-width: 680px) {
+    .biblioteca-criar-acoes {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .biblioteca-criar-acoes .biblioteca-criar-link {
         width: 100%;
     }
 }
