@@ -2,8 +2,9 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
 import { STLExporter } from "three/addons/exporters/STLExporter.js";
+import polygonClipping from "https://cdn.jsdelivr.net/npm/polygon-clipping@0.15.7/+esm";
 
-const VERSION = "0.1.0";
+const VERSION = "0.2.1";
 
 const $ = (seletor) => document.querySelector(seletor);
 
@@ -22,6 +23,7 @@ const els = {
     espessuraBaseValor: $("#espessuraBaseValor"),
 
     modoDetalhe: $("#modoDetalhe"),
+    letrasFuradas: $("#letrasFuradas"),
     controleAlturaDetalhe: $("#controleAlturaDetalhe"),
 
     alturaDetalhe: $("#alturaDetalhe"),
@@ -243,15 +245,17 @@ function contornosDaCategoria(paths, categoria) {
 }
 
 
-function construirShapesComFuros(contornos) {
+function analisarHierarquiaContornos(contornos) {
     const ordenados = [...contornos]
-        .sort((a, b) => b.absArea - a.absArea);
+        .sort((a, b) => b.absArea - a.absArea)
+        .map(item => ({
+            ...item,
+            parent: null,
+            depth: 0
+        }));
 
     for (let i = 0; i < ordenados.length; i++) {
         const atual = ordenados[i];
-        atual.parent = null;
-        atual.depth = 0;
-
         const pTeste = atual.points[0];
 
         for (let j = 0; j < i; j++) {
@@ -264,6 +268,14 @@ function construirShapesComFuros(contornos) {
             }
         }
     }
+
+    return ordenados;
+}
+
+
+function construirShapesComFuros(contornos) {
+    const ordenados =
+        analisarHierarquiaContornos(contornos);
 
     const shapes = [];
 
@@ -302,6 +314,206 @@ function construirShapesComFuros(contornos) {
     }
 
     return shapes;
+}
+
+
+function fecharAnel(points) {
+    const anel = points.map(
+        p => [p.x, -p.y]
+    );
+
+    if (!anel.length) return anel;
+
+    const primeiro = anel[0];
+    const ultimo = anel[anel.length - 1];
+
+    if (
+        primeiro[0] !== ultimo[0] ||
+        primeiro[1] !== ultimo[1]
+    ) {
+        anel.push([
+            primeiro[0],
+            primeiro[1]
+        ]);
+    }
+
+    return anel;
+}
+
+
+function contornosParaMultiPoligono(contornos) {
+    const ordenados =
+        analisarHierarquiaContornos(contornos);
+
+    const multi = [];
+
+    for (const item of ordenados) {
+        if (item.depth % 2 !== 0) continue;
+
+        const poligono = [
+            fecharAnel(item.points)
+        ];
+
+        const filhos = ordenados.filter(
+            outro =>
+                outro.parent === item &&
+                outro.depth === item.depth + 1
+        );
+
+        for (const holeItem of filhos) {
+            poligono.push(
+                fecharAnel(holeItem.points)
+            );
+        }
+
+        multi.push(poligono);
+    }
+
+    return multi;
+}
+
+
+function caminhoDeAnel(anel, PathClass) {
+    const pontos = anel
+        .slice(
+            0,
+            anel.length > 1 &&
+            anel[0][0] === anel[anel.length - 1][0] &&
+            anel[0][1] === anel[anel.length - 1][1]
+                ? -1
+                : undefined
+        );
+
+    if (pontos.length < 3) {
+        return null;
+    }
+
+    const path = new PathClass();
+
+    pontos.forEach(([x, y], index) => {
+        if (index === 0) {
+            path.moveTo(x, y);
+        } else {
+            path.lineTo(x, y);
+        }
+    });
+
+    path.closePath();
+
+    return path;
+}
+
+
+function multiPoligonoParaShapes(multi) {
+    const shapes = [];
+
+    for (const poligono of multi) {
+        if (!poligono?.length) continue;
+
+        const shape =
+            caminhoDeAnel(
+                poligono[0],
+                THREE.Shape
+            );
+
+        if (!shape) continue;
+
+        for (let i = 1; i < poligono.length; i++) {
+            const hole =
+                caminhoDeAnel(
+                    poligono[i],
+                    THREE.Path
+                );
+
+            if (hole) {
+                shape.holes.push(hole);
+            }
+        }
+
+        shapes.push(shape);
+    }
+
+    return shapes;
+}
+
+
+function geometriaBaseComLetrasFuradas(
+    paths,
+    profundidade
+) {
+    const baseContornos =
+        contornosDaCategoria(
+            paths,
+            "base"
+        );
+
+    const letraContornos =
+        contornosDaCategoria(
+            paths,
+            "azul"
+        );
+
+    if (!baseContornos.length) {
+        return {
+            geometry: null,
+            count: 0,
+            cutCount: 0
+        };
+    }
+
+    const baseMulti =
+        contornosParaMultiPoligono(
+            baseContornos
+        );
+
+    let resultado = baseMulti;
+
+    if (letraContornos.length) {
+        const letrasMulti =
+            contornosParaMultiPoligono(
+                letraContornos
+            );
+
+        if (letrasMulti.length) {
+            resultado =
+                polygonClipping.difference(
+                    baseMulti,
+                    letrasMulti
+                );
+        }
+    }
+
+    const shapes =
+        multiPoligonoParaShapes(
+            resultado
+        );
+
+    if (!shapes.length) {
+        return {
+            geometry: null,
+            count: baseContornos.length,
+            cutCount: letraContornos.length
+        };
+    }
+
+    const geometry =
+        new THREE.ExtrudeGeometry(
+            shapes,
+            {
+                depth: profundidade,
+                bevelEnabled: false,
+                curveSegments: 20,
+                steps: 1
+            }
+        );
+
+    geometry.computeVertexNormals();
+
+    return {
+        geometry,
+        count: baseContornos.length,
+        cutCount: letraContornos.length
+    };
 }
 
 
@@ -430,6 +642,7 @@ function valoresAtuais() {
         largura: Number(els.larguraFinal.value),
         espessuraBase: Number(els.espessuraBase.value),
         modoDetalhe: els.modoDetalhe.value,
+        letrasFuradas: els.letrasFuradas.checked,
         alturaDetalhe: Number(els.alturaDetalhe.value)
     };
 }
@@ -514,11 +727,17 @@ function construirModelo3D() {
     const valores = valoresAtuais();
     const { data } = svgInfoAtual;
 
-    const baseInfo = geometriaCategoria(
-        data.paths,
-        "base",
-        valores.espessuraBase
-    );
+    const baseInfo =
+        valores.letrasFuradas
+            ? geometriaBaseComLetrasFuradas(
+                data.paths,
+                valores.espessuraBase
+            )
+            : geometriaCategoria(
+                data.paths,
+                "base",
+                valores.espessuraBase
+            );
 
     if (!baseInfo.geometry) {
         definirErro(
@@ -538,7 +757,12 @@ function construirModelo3D() {
     grupoModelo.add(base);
 
     if (valores.modoDetalhe === "alto") {
-        for (const categoria of ["azul", "preto"]) {
+        const categoriasDetalhe =
+            valores.letrasFuradas
+                ? ["preto"]
+                : ["azul", "preto"];
+
+        for (const categoria of categoriasDetalhe) {
             const detalheInfo = geometriaCategoria(
                 data.paths,
                 categoria,
@@ -570,13 +794,34 @@ function construirModelo3D() {
         return false;
     }
 
-    const escala = valores.largura / tamanhoOriginal.x;
+    const escalaXY =
+        valores.largura / tamanhoOriginal.x;
 
-    grupoModelo.scale.set(
-        escala,
-        escala,
-        1
-    );
+    /*
+        A largura final altera somente X e Y.
+        A escala é incorporada diretamente às geometrias,
+        preservando Z para manter a espessura da base e
+        a altura do relevo exatamente nos valores configurados.
+    */
+    const matrizEscalaXY =
+        new THREE.Matrix4().makeScale(
+            escalaXY,
+            escalaXY,
+            1
+        );
+
+    grupoModelo.traverse(obj => {
+        if (obj.isMesh && obj.geometry) {
+            obj.geometry.applyMatrix4(
+                matrizEscalaXY
+            );
+
+            obj.geometry.computeBoundingBox();
+            obj.geometry.computeBoundingSphere();
+        }
+    });
+
+    grupoModelo.scale.set(1, 1, 1);
 
     scene.add(grupoModelo);
 
@@ -1179,6 +1424,32 @@ function registrarEventos() {
             if (svgTextoAtual) {
                 construirModelo3D();
             }
+        }
+    );
+
+    els.letrasFuradas.addEventListener(
+        "change",
+        () => {
+            const ativo =
+                els.letrasFuradas.checked;
+
+            els.letrasFuradas
+                .closest(".check-card")
+                ?.classList.toggle(
+                    "ativo",
+                    ativo
+                );
+
+            invalidarStl();
+
+            if (svgTextoAtual) {
+                construirModelo3D();
+            }
+
+            els.statusTopo.textContent =
+                ativo
+                    ? "Letras furadas"
+                    : "Letras em relevo";
         }
     );
 

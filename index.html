@@ -11,7 +11,7 @@
         content="Converta SVGs de chaveiros em modelos 3D, visualize no navegador e exporte em STL."
     >
 
-    <link rel="stylesheet" href="style.css?v=0.1.0">
+    <link rel="stylesheet" href="style.css?v=0.2.1">
 
     <script type="importmap">
     {
@@ -39,7 +39,7 @@
 
         <div class="topo-status">
             <span id="statusTopo">Aguardando SVG</span>
-            <span class="versao">v0.1.0</span>
+            <span class="versao">v0.2.1</span>
         </div>
 
     </div>
@@ -140,27 +140,27 @@
             <div class="controle">
                 <div class="controle-cabecalho">
                     <label for="espessuraBase">Espessura da base</label>
-                    <output id="espessuraBaseValor">3,0 mm</output>
+                    <output id="espessuraBaseValor">1,5 mm</output>
                 </div>
 
                 <div class="controle-linha">
                     <input
                         id="espessuraBase"
                         type="range"
-                        min="1.5"
+                        min="1.0"
                         max="6"
                         step="0.1"
-                        value="3"
+                        value="1.5"
                     >
 
                     <input
                         id="espessuraBaseNumero"
                         class="numero"
                         type="number"
-                        min="1.5"
+                        min="1.0"
                         max="6"
                         step="0.1"
-                        value="3"
+                        value="1.5"
                     >
                 </div>
             </div>
@@ -184,11 +184,28 @@
                 <option value="nenhum">Ignorar detalhes</option>
             </select>
 
+            <label class="check-card" for="letrasFuradas">
+                <input
+                    id="letrasFuradas"
+                    type="checkbox"
+                >
+
+                <span class="check-visual" aria-hidden="true"></span>
+
+                <span class="check-texto">
+                    <strong>Letras furadas</strong>
+                    <small>
+                        Usa os contornos azuis fechados como furos que atravessam
+                        toda a base, em vez de alto-relevo.
+                    </small>
+                </span>
+            </label>
+
 
             <div id="controleAlturaDetalhe" class="controle controle-com-margem">
                 <div class="controle-cabecalho">
                     <label for="alturaDetalhe">Altura do relevo</label>
-                    <output id="alturaDetalheValor">0,6 mm</output>
+                    <output id="alturaDetalheValor">0,5 mm</output>
                 </div>
 
                 <div class="controle-linha">
@@ -198,7 +215,7 @@
                         min="0.2"
                         max="2"
                         step="0.1"
-                        value="0.6"
+                        value="0.5"
                     >
 
                     <input
@@ -208,7 +225,7 @@
                         min="0.2"
                         max="2"
                         step="0.1"
-                        value="0.6"
+                        value="0.5"
                     >
                 </div>
             </div>
@@ -343,11 +360,11 @@
 
 
         <div class="alerta">
-            <strong>v0.1</strong>
+            <strong>v0.2</strong>
             <p>
-                Esta versão trabalha melhor com contornos fechados.
-                Linhas azuis abertas podem aparecer no SVG, mas ainda não são
-                convertidas em relevo sólido.
+                Contornos azuis fechados podem ser usados como alto-relevo ou
+                como furos passantes. Linhas azuis abertas e elementos
+                &lt;text&gt; ainda não são convertidos em geometria sólida.
             </p>
         </div>
 
@@ -385,12 +402,12 @@
     </div>
 
     <div>
-        v0.1.0
+        v0.2.1
     </div>
 </footer>
 
 
-<script type="module" src="script.js?v=0.1.0"></script>
+<script type="module" src="script.js?v=0.2.1"></script>
 
 </body>
 </html>

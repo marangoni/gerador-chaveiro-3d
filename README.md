@@ -1,70 +1,66 @@
 # Gerador de Chaveiros 3D — NuRIA Maker
 
-Versão inicial do conversor de SVGs de chaveiros para modelos 3D.
+Versão `v0.2.1`.
 
-## Versão
 
-`v0.1.0`
+## Ajustes da v0.2.1
 
-## Repositório sugerido
+- espessura padrão da base: **1,5 mm**;
+- altura padrão do relevo: **0,5 mm**;
+- o controle **Largura final** altera somente X e Y;
+- a proporção no plano XY é preservada;
+- a espessura da base e a altura do relevo no eixo Z não são escaladas;
+- a escala XY é aplicada diretamente às geometrias antes da exportação STL.
 
-```text
-gerador-chaveiro-3d
-```
+## Novidade principal
 
-GitHub Pages esperado:
+Foi adicionada a opção **Letras furadas**.
 
-```text
-https://marangoni.github.io/gerador-chaveiro-3d/
-```
-
-## Objetivo da v0.1
-
-Validar o fluxo:
+Quando o check-button está desmarcado:
 
 ```text
-SVG
-→ leitura por cor
-→ interpretação dos contornos
-→ prévia Three.js
-→ extrusão 3D
-→ geração STL
+AZUL → alto-relevo
 ```
 
-Nesta versão, o STL é exportado diretamente a partir da mesma geometria usada na prévia. Isso elimina diferenças entre a visualização e a exportação durante a validação inicial do projeto.
+Quando está marcado:
+
+```text
+AZUL → furo passante pela base
+```
+
+O recorte é realizado em 2D antes da extrusão da base, usando operação booleana de polígonos. Assim, a prévia Three.js e o STL continuam derivados da mesma geometria.
 
 ## Convenção de cores
 
-O gerador aproveita a convenção já utilizada nas ferramentas de corte a laser:
+- vermelho `#ff0000`: geometria da base e furos estruturais;
+- azul `#0000ff`: letras/detalhes, podendo ser relevo ou furo passante;
+- preto `#000000`: detalhes preenchidos em relevo.
 
-- vermelho `#ff0000`: contorno da base;
-- azul `#0000ff`: detalhe;
-- preto `#000000`: detalhe preenchido.
+## SVG real de referência
 
-Na `v0.1.0`:
+O projeto inclui:
 
-- o vermelho é extrudado como base;
-- azul e preto podem ser extrudados em alto-relevo;
-- detalhes podem ser ignorados;
-- linhas abertas ainda não são convertidas em relevo sólido.
+```text
+exemplos/chaveiro-david.svg
+```
 
-## Recursos
+Esse arquivo foi usado como caso de referência para a opção de letras furadas.
 
-- carregamento de SVG local;
-- exemplo integrado para teste;
-- detecção automática de vermelho, azul e preto;
-- preservação de furos quando os contornos são fechados;
-- largura final ajustável;
-- espessura da base ajustável;
-- alto-relevo ajustável;
-- prévia Three.js instantânea;
-- exportação STL;
-- invalidação automática do STL quando um parâmetro é alterado.
+No SVG fornecido:
+
+- `corte-chaveiro` está em vermelho;
+- `furo-chaveiro` está em vermelho;
+- `letras-chaveiro` está em azul;
+- o nome do autor é um elemento SVG `<text>` azul.
+
+### Limitação atual
+
+Elementos SVG `<text>` ainda não são convertidos em geometria. Portanto, o pequeno texto de autoria do SVG de referência não entra no STL. Para ser convertido, o texto precisa estar transformado em `path`.
 
 ## Teste local
 
 ```bash
-cd gerador-chaveiro-3d-v0.1.0
+cd gerador-chaveiro-3d-v0.2.0
 python3 -m http.server 8006 > servidor.log 2>&1 &
 ```
 
@@ -74,32 +70,26 @@ Abra:
 http://localhost:8006
 ```
 
-## Primeiro teste recomendado
+## Teste recomendado
 
-1. Clique em **Carregar exemplo**.
-2. Confirme que o chaveiro aparece sobre a grade.
-3. Altere a largura de 60 para 70 mm.
-4. Altere a espessura de 3 para 4 mm.
-5. Clique em **Gerar STL**.
-6. Baixe o STL.
-7. Abra no fatiador.
+1. Carregue `exemplos/chaveiro-david.svg`.
+2. Confira o chaveiro com **Letras furadas** desmarcado.
+3. Marque **Letras furadas**.
+4. Confira se DAVID passa a atravessar toda a espessura da base.
+5. Gere o STL.
+6. Abra no fatiador e inspecione os furos.
 
-Depois deste teste, carregue um SVG real produzido por um dos geradores de chaveiros do laboratório.
+## Dependências carregadas via CDN
 
-## Próximas versões planejadas
+- Three.js;
+- SVGLoader;
+- STLExporter;
+- `polygon-clipping` para a diferença booleana 2D.
 
-### v0.2
-- suporte a linhas abertas azuis como relevo;
-- melhor diagnóstico de SVG;
-- controle separado para azul e preto.
+## Próximos passos possíveis
 
-### v0.3
 - baixo-relevo;
-- gravação/rebaixo real;
-- operações booleanas.
-
-### v0.4
-- geração em duas peças/STLs para impressão em duas cores.
-
-### v0.5
-- integração direta com os geradores de chaveiros existentes.
+- controle independente entre azul e preto;
+- transformar linhas abertas em traços 3D;
+- converter `<text>` em geometria;
+- STL separado por cor/material.
