@@ -11,7 +11,7 @@
         content="Converta SVGs de chaveiros em modelos 3D, visualize no navegador e exporte em STL."
     >
 
-    <link rel="stylesheet" href="style.css?v=0.2.1">
+    <link rel="stylesheet" href="style.css?v=0.3.1">
 
     <script type="importmap">
     {
@@ -39,7 +39,7 @@
 
         <div class="topo-status">
             <span id="statusTopo">Aguardando SVG</span>
-            <span class="versao">v0.2.1</span>
+            <span class="versao">v0.3.1</span>
         </div>
 
     </div>
@@ -85,11 +85,11 @@
                 </button>
 
                 <button
-                    id="btnExemplo"
+                    id="btnBiblioteca"
                     class="botao botao-secundario"
                     type="button"
                 >
-                    Carregar exemplo
+                    Biblioteca
                 </button>
 
             </div>
@@ -360,11 +360,11 @@
 
 
         <div class="alerta">
-            <strong>v0.2</strong>
+            <strong>v0.3</strong>
             <p>
-                Contornos azuis fechados podem ser usados como alto-relevo ou
-                como furos passantes. Linhas azuis abertas e elementos
-                &lt;text&gt; ainda não são convertidos em geometria sólida.
+                A biblioteca inclui exemplos já preparados para o gerador.
+                Você também pode continuar carregando qualquer SVG compatível
+                do seu computador.
             </p>
         </div>
 
@@ -396,18 +396,107 @@
 </main>
 
 
+<div
+    id="modalBiblioteca"
+    class="modal-biblioteca"
+    hidden
+    aria-hidden="true"
+>
+    <div class="modal-fundo" data-fechar-biblioteca></div>
+
+    <section
+        class="biblioteca-dialogo"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="bibliotecaTitulo"
+    >
+
+        <header class="biblioteca-topo">
+
+            <div>
+                <p class="kicker">BIBLIOTECA</p>
+                <h2 id="bibliotecaTitulo">
+                    Exemplos de chaveiros
+                </h2>
+                <p>
+                    Escolha um modelo pronto para editar, redimensionar e
+                    transformar em STL.
+                </p>
+            </div>
+
+            <button
+                id="btnFecharBiblioteca"
+                class="biblioteca-fechar"
+                type="button"
+                aria-label="Fechar biblioteca"
+            >
+                ×
+            </button>
+
+        </header>
+
+
+        <div class="biblioteca-ferramentas">
+
+            <label class="biblioteca-busca">
+                <span>Buscar</span>
+
+                <input
+                    id="buscaBiblioteca"
+                    type="search"
+                    placeholder="Ex.: coração, Maria, engrenagem..."
+                    autocomplete="off"
+                >
+            </label>
+
+            <div
+                id="filtrosBiblioteca"
+                class="biblioteca-filtros"
+                aria-label="Categorias da biblioteca"
+            ></div>
+
+        </div>
+
+
+        <div class="biblioteca-resumo">
+            <strong id="bibliotecaContagem">0 modelos</strong>
+
+            <span>
+                SVGs prontos para relevo ou recorte
+            </span>
+        </div>
+
+
+        <div
+            id="gradeBiblioteca"
+            class="biblioteca-grade"
+        ></div>
+
+
+        <div
+            id="bibliotecaVazia"
+            class="biblioteca-vazia"
+            hidden
+        >
+            Nenhum exemplo encontrado.
+        </div>
+
+    </section>
+</div>
+
+
 <footer class="rodape">
     <div>
         NuRIA Maker · Gerador de Chaveiros 3D
     </div>
 
     <div>
-        v0.2.1
+        v0.3.1
     </div>
 </footer>
 
 
-<script type="module" src="script.js?v=0.2.1"></script>
+<script type="module" src="script.js?v=0.3.1"></script>
 
 </body>
 </html>

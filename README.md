@@ -1,66 +1,96 @@
 # Gerador de Chaveiros 3D — NuRIA Maker
 
-Versão `v0.2.1`.
+Versão `v0.3.1`.
 
 
-## Ajustes da v0.2.1
+## Ajustes da v0.3.1
 
-- espessura padrão da base: **1,5 mm**;
-- altura padrão do relevo: **0,5 mm**;
-- o controle **Largura final** altera somente X e Y;
-- a proporção no plano XY é preservada;
-- a espessura da base e a altura do relevo no eixo Z não são escaladas;
-- a escala XY é aplicada diretamente às geometrias antes da exportação STL.
+- corrigido o layout da biblioteca quando **Todos** exibe muitos modelos;
+- os cards agora mantêm sua altura natural e a grade usa rolagem vertical;
+- miniaturas recoloridas para a identidade NuRIA:
+  - vinho/marrom `#531C33`;
+  - laranja `#E17D01`;
+- os SVGs originais continuam em vermelho/azul internamente, preservando a convenção técnica usada pelo gerador.
 
-## Novidade principal
+## Biblioteca de exemplos
 
-Foi adicionada a opção **Letras furadas**.
+A versão 0.3 adiciona uma biblioteca integrada com **30 modelos**.
 
-Quando o check-button está desmarcado:
+Distribuição inicial:
 
-```text
-AZUL → alto-relevo
-```
+- 8 nomes;
+- 10 emojis e símbolos afetivos;
+- 6 ícones Maker;
+- 6 personagens originais.
 
-Quando está marcado:
+Os exemplos são arquivos SVG reais armazenados em `biblioteca/` e descritos
+por `biblioteca/biblioteca.json`.
 
-```text
-AZUL → furo passante pela base
-```
-
-O recorte é realizado em 2D antes da extrusão da base, usando operação booleana de polígonos. Assim, a prévia Three.js e o STL continuam derivados da mesma geometria.
-
-## Convenção de cores
-
-- vermelho `#ff0000`: geometria da base e furos estruturais;
-- azul `#0000ff`: letras/detalhes, podendo ser relevo ou furo passante;
-- preto `#000000`: detalhes preenchidos em relevo.
-
-## SVG real de referência
-
-O projeto inclui:
+## Como funciona
 
 ```text
-exemplos/chaveiro-david.svg
+Biblioteca
+→ filtro / busca
+→ selecionar modelo
+→ carregar SVG
+→ prévia 3D
+→ ajustar dimensões
+→ relevo ou vazado
+→ gerar STL
 ```
 
-Esse arquivo foi usado como caso de referência para a opção de letras furadas.
+O botão **Biblioteca** abre uma galeria com:
 
-No SVG fornecido:
+- miniatura do próprio SVG;
+- nome;
+- categoria;
+- tags;
+- campo de busca;
+- filtros de categoria;
+- botão **Usar este modelo**.
 
-- `corte-chaveiro` está em vermelho;
-- `furo-chaveiro` está em vermelho;
-- `letras-chaveiro` está em azul;
-- o nome do autor é um elemento SVG `<text>` azul.
+## Estrutura
 
-### Limitação atual
+```text
+gerador-chaveiro-3d-v0.3.0/
+├── index.html
+├── style.css
+├── script.js
+├── README.md
+├── exemplos/
+│   └── chaveiro-david.svg
+└── biblioteca/
+    ├── biblioteca.json
+    ├── nomes/
+    ├── emojis/
+    ├── maker/
+    └── personagens/
+```
 
-Elementos SVG `<text>` ainda não são convertidos em geometria. Portanto, o pequeno texto de autoria do SVG de referência não entra no STL. Para ser convertido, o texto precisa estar transformado em `path`.
+## Compatibilidade
+
+Todos os modelos da biblioteca foram criados com a convenção:
+
+- vermelho: base do chaveiro;
+- azul: desenho interno;
+- sem elementos `<text>` nos exemplos de nomes;
+- nomes já convertidos para paths.
+
+Isso permite usar os exemplos tanto em alto-relevo quanto, quando adequado,
+como recortes passantes.
+
+## Valores padrão
+
+- espessura da base: **1,5 mm**;
+- relevo: **0,5 mm**;
+- largura: **60 mm**.
+
+O ajuste de largura atua apenas em X e Y. O eixo Z não é redimensionado.
 
 ## Teste local
 
 ```bash
-cd gerador-chaveiro-3d-v0.2.0
+cd gerador-chaveiro-3d-v0.3.0
 python3 -m http.server 8006 > servidor.log 2>&1 &
 ```
 
@@ -72,24 +102,17 @@ http://localhost:8006
 
 ## Teste recomendado
 
-1. Carregue `exemplos/chaveiro-david.svg`.
-2. Confira o chaveiro com **Letras furadas** desmarcado.
-3. Marque **Letras furadas**.
-4. Confira se DAVID passa a atravessar toda a espessura da base.
-5. Gere o STL.
-6. Abra no fatiador e inspecione os furos.
+1. Clique em **Biblioteca**.
+2. Teste a busca por `Maria`.
+3. Carregue um nome.
+4. Volte à biblioteca e filtre **Emojis**.
+5. Carregue `Coração`.
+6. Marque/desmarque **Letras furadas**.
+7. Gere o STL de um dos modelos.
 
-## Dependências carregadas via CDN
+## Observação sobre personagens conhecidos
 
-- Three.js;
-- SVGLoader;
-- STLExporter;
-- `polygon-clipping` para a diferença booleana 2D.
-
-## Próximos passos possíveis
-
-- baixo-relevo;
-- controle independente entre azul e preto;
-- transformar linhas abertas em traços 3D;
-- converter `<text>` em geometria;
-- STL separado por cor/material.
+A biblioteca inicial usa personagens originais e ícones genéricos. Isso mantém
+o repositório público independente de artes protegidas por terceiros.
+Arquivos de personagens externos continuam podendo ser carregados manualmente
+quando forem compatíveis com o gerador.

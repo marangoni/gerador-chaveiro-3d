@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 90 38"
+    width="90mm"
+    height="38mm"
+    role="img"
+    aria-label="Chaveiro Flor">
+
+    <path
+        d="M 10 3
+H 82
+Q 87 3 87 8
+V 30
+Q 87 35 82 35
+H 10
+Q 3 35 3 28
+V 10
+Q 3 3 10 3
+Z
+
+M 12 15
+a 4 4 0 1 0 0 8
+a 4 4 0 1 0 0 -8
+Z"
+        fill="#FF0000"
+        fill-rule="evenodd"
+        stroke="none"
+    />
+
+    <circle cx="62.0" cy="19.0" r="4.5" fill="#0000FF" stroke="none"/><circle cx="58.5" cy="25.06217782649107" r="4.5" fill="#0000FF" stroke="none"/><circle cx="51.5" cy="25.062177826491073" r="4.5" fill="#0000FF" stroke="none"/><circle cx="48.0" cy="19.0" r="4.5" fill="#0000FF" stroke="none"/><circle cx="51.5" cy="12.93782217350893" r="4.5" fill="#0000FF" stroke="none"/><circle cx="58.5" cy="12.93782217350893" r="4.5" fill="#0000FF" stroke="none"/><circle cx="55" cy="19" r="4" fill="#0000FF" stroke="none"/>
+</svg>

@@ -4,14 +4,14 @@ import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
 import { STLExporter } from "three/addons/exporters/STLExporter.js";
 import polygonClipping from "https://cdn.jsdelivr.net/npm/polygon-clipping@0.15.7/+esm";
 
-const VERSION = "0.2.1";
+const VERSION = "0.3.1";
 
 const $ = (seletor) => document.querySelector(seletor);
 
 const els = {
     arquivoSvg: $("#arquivoSvg"),
     btnEscolherSvg: $("#btnEscolherSvg"),
-    btnExemplo: $("#btnExemplo"),
+    btnBiblioteca: $("#btnBiblioteca"),
     arquivoInfo: $("#arquivoInfo"),
 
     larguraFinal: $("#larguraFinal"),
@@ -46,7 +46,15 @@ const els = {
     btnGerarStl: $("#btnGerarStl"),
     btnBaixarStl: $("#btnBaixarStl"),
 
-    statusTopo: $("#statusTopo")
+    statusTopo: $("#statusTopo"),
+
+    modalBiblioteca: $("#modalBiblioteca"),
+    btnFecharBiblioteca: $("#btnFecharBiblioteca"),
+    buscaBiblioteca: $("#buscaBiblioteca"),
+    filtrosBiblioteca: $("#filtrosBiblioteca"),
+    gradeBiblioteca: $("#gradeBiblioteca"),
+    bibliotecaContagem: $("#bibliotecaContagem"),
+    bibliotecaVazia: $("#bibliotecaVazia")
 };
 
 const CORES = {
@@ -67,6 +75,17 @@ let grupoModelo = null;
 
 let stlBlob = null;
 let assinaturaStl = null;
+
+let bibliotecaDados = null;
+let bibliotecaCategoria = "Todos";
+let bibliotecaBusca = "";
+
+/*
+    Cache de miniaturas recoloridas.
+    Os SVGs originais continuam usando vermelho/azul porque essas
+    cores fazem parte da convenção técnica do gerador.
+*/
+const cacheMiniaturas = new Map();
 
 const loader = new SVGLoader();
 const exporter = new STLExporter();
@@ -1360,6 +1379,402 @@ const SVG_EXEMPLO = `
 `;
 
 
+
+function normalizarBusca(texto) {
+    return String(texto ?? "")
+        .normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "")
+        .toLowerCase()
+        .trim();
+}
+
+
+async function carregarDadosBiblioteca() {
+    if (bibliotecaDados) {
+        return bibliotecaDados;
+    }
+
+    els.gradeBiblioteca.innerHTML =
+        '<div class="biblioteca-vazia">Carregando biblioteca...</div>';
+
+    const resposta =
+        await fetch(
+            "biblioteca/biblioteca.json",
+            {
+                cache: "no-store"
+            }
+        );
+
+    if (!resposta.ok) {
+        throw new Error(
+            `Falha ao carregar a biblioteca (${resposta.status}).`
+        );
+    }
+
+    bibliotecaDados =
+        await resposta.json();
+
+    renderizarFiltrosBiblioteca();
+
+    return bibliotecaDados;
+}
+
+
+function renderizarFiltrosBiblioteca() {
+    if (!bibliotecaDados) return;
+
+    els.filtrosBiblioteca.innerHTML = "";
+
+    for (const categoria of bibliotecaDados.categorias) {
+        const botao =
+            document.createElement("button");
+
+        botao.type = "button";
+        botao.className =
+            "biblioteca-filtro" +
+            (
+                categoria === bibliotecaCategoria
+                    ? " ativo"
+                    : ""
+            );
+
+        botao.textContent = categoria;
+
+        botao.addEventListener(
+            "click",
+            () => {
+                bibliotecaCategoria = categoria;
+                renderizarFiltrosBiblioteca();
+                renderizarBiblioteca();
+            }
+        );
+
+        els.filtrosBiblioteca.appendChild(
+            botao
+        );
+    }
+}
+
+
+function itensBibliotecaFiltrados() {
+    if (!bibliotecaDados) return [];
+
+    const busca =
+        normalizarBusca(
+            bibliotecaBusca
+        );
+
+    return bibliotecaDados.itens.filter(
+        item => {
+            if (
+                bibliotecaCategoria !== "Todos" &&
+                item.categoria !== bibliotecaCategoria
+            ) {
+                return false;
+            }
+
+            if (!busca) {
+                return true;
+            }
+
+            const texto =
+                normalizarBusca(
+                    [
+                        item.nome,
+                        item.categoria,
+                        item.descricao,
+                        ...(item.tags ?? [])
+                    ].join(" ")
+                );
+
+            return texto.includes(busca);
+        }
+    );
+}
+
+
+
+async function miniaturaNuria(caminhoSvg) {
+    if (cacheMiniaturas.has(caminhoSvg)) {
+        return cacheMiniaturas.get(caminhoSvg);
+    }
+
+    const resposta =
+        await fetch(
+            caminhoSvg,
+            {
+                cache: "no-store"
+            }
+        );
+
+    if (!resposta.ok) {
+        throw new Error(
+            `Falha ao carregar miniatura: ${caminhoSvg}`
+        );
+    }
+
+    let svg =
+        await resposta.text();
+
+    /*
+        Recolore APENAS a miniatura:
+        vermelho técnico -> vinho/marrom NuRIA
+        azul técnico      -> laranja NuRIA
+
+        O arquivo carregado no gerador permanece intocado.
+    */
+    svg = svg
+        .replace(
+            /#ff0000/gi,
+            "#531C33"
+        )
+        .replace(
+            /#f00\b/gi,
+            "#531C33"
+        )
+        .replace(
+            /rgb\(\s*255\s*,\s*0\s*,\s*0\s*\)/gi,
+            "#531C33"
+        )
+        .replace(
+            /#0000ff/gi,
+            "#E17D01"
+        )
+        .replace(
+            /#00f\b/gi,
+            "#E17D01"
+        )
+        .replace(
+            /rgb\(\s*0\s*,\s*0\s*,\s*255\s*\)/gi,
+            "#E17D01"
+        );
+
+    const blob =
+        new Blob(
+            [svg],
+            {
+                type: "image/svg+xml"
+            }
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    cacheMiniaturas.set(
+        caminhoSvg,
+        url
+    );
+
+    return url;
+}
+
+
+function aplicarMiniaturaNuria(img, caminhoSvg) {
+    miniaturaNuria(caminhoSvg)
+        .then(
+            url => {
+                img.src = url;
+            }
+        )
+        .catch(
+            erro => {
+                console.warn(erro);
+
+                // Fallback: usa o SVG original.
+                img.src = caminhoSvg;
+            }
+        );
+}
+
+function renderizarBiblioteca() {
+    if (!bibliotecaDados) return;
+
+    const itens =
+        itensBibliotecaFiltrados();
+
+    els.gradeBiblioteca.innerHTML = "";
+
+    els.bibliotecaContagem.textContent =
+        `${itens.length} ${
+            itens.length === 1
+                ? "modelo"
+                : "modelos"
+        }`;
+
+    els.bibliotecaVazia.hidden =
+        itens.length > 0;
+
+    for (const item of itens) {
+        const card =
+            document.createElement("article");
+
+        card.className =
+            "biblioteca-card";
+
+        const tags =
+            (item.tags ?? [])
+                .slice(0, 3)
+                .map(
+                    tag =>
+                        `<span>${tag}</span>`
+                )
+                .join("");
+
+        card.innerHTML = `
+            <div class="biblioteca-preview">
+                <img
+                    src=""
+                    data-arquivo-svg="${item.arquivo}"
+                    alt="${item.nome}"
+                    loading="lazy"
+                >
+
+                <span class="biblioteca-categoria">
+                    ${item.categoria}
+                </span>
+            </div>
+
+            <div class="biblioteca-card-conteudo">
+                <h3>${item.nome}</h3>
+
+                <p>${item.descricao}</p>
+
+                <div class="biblioteca-tags">
+                    ${tags}
+                </div>
+
+                <button
+                    class="biblioteca-usar"
+                    type="button"
+                >
+                    Usar este modelo
+                </button>
+            </div>
+        `;
+
+        card
+            .querySelector(".biblioteca-usar")
+            .addEventListener(
+                "click",
+                () => usarItemBiblioteca(item)
+            );
+
+        const imgPreview =
+            card.querySelector(
+                ".biblioteca-preview img"
+            );
+
+        aplicarMiniaturaNuria(
+            imgPreview,
+            item.arquivo
+        );
+
+        els.gradeBiblioteca.appendChild(
+            card
+        );
+    }
+}
+
+
+async function abrirBiblioteca() {
+    els.modalBiblioteca.hidden = false;
+    els.modalBiblioteca.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    document.body.classList.add(
+        "modal-aberto"
+    );
+
+    try {
+        await carregarDadosBiblioteca();
+
+        renderizarBiblioteca();
+
+        setTimeout(
+            () => els.buscaBiblioteca.focus(),
+            0
+        );
+    } catch (erro) {
+        console.error(erro);
+
+        els.gradeBiblioteca.innerHTML = "";
+
+        els.bibliotecaVazia.hidden = false;
+        els.bibliotecaVazia.textContent =
+            "Não foi possível carregar a biblioteca. " +
+            "Execute o projeto por um servidor HTTP local.";
+    }
+}
+
+
+function fecharBiblioteca() {
+    els.modalBiblioteca.hidden = true;
+    els.modalBiblioteca.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    document.body.classList.remove(
+        "modal-aberto"
+    );
+}
+
+
+async function usarItemBiblioteca(item) {
+    try {
+        const resposta =
+            await fetch(
+                item.arquivo,
+                {
+                    cache: "no-store"
+                }
+            );
+
+        if (!resposta.ok) {
+            throw new Error(
+                `Falha ao carregar ${item.nome}.`
+            );
+        }
+
+        const svg =
+            await resposta.text();
+
+        els.letrasFuradas.checked =
+            Boolean(item.furado);
+
+        els.letrasFuradas
+            .closest(".check-card")
+            ?.classList.toggle(
+                "ativo",
+                els.letrasFuradas.checked
+            );
+
+        els.modoDetalhe.value = "alto";
+
+        els.controleAlturaDetalhe.hidden =
+            false;
+
+        processarSvg(
+            svg,
+            item.arquivo.split("/").pop()
+        );
+
+        fecharBiblioteca();
+
+        els.statusTopo.textContent =
+            `Biblioteca · ${item.nome}`;
+    } catch (erro) {
+        console.error(erro);
+
+        els.bibliotecaVazia.hidden = false;
+        els.bibliotecaVazia.textContent =
+            erro?.message ||
+            "Não foi possível carregar o exemplo.";
+    }
+}
+
 function registrarEventos() {
     els.btnEscolherSvg.addEventListener(
         "click",
@@ -1382,13 +1797,46 @@ function registrarEventos() {
         }
     );
 
-    els.btnExemplo.addEventListener(
+    els.btnBiblioteca.addEventListener(
         "click",
+        abrirBiblioteca
+    );
+
+    els.btnFecharBiblioteca.addEventListener(
+        "click",
+        fecharBiblioteca
+    );
+
+    els.modalBiblioteca
+        .querySelectorAll("[data-fechar-biblioteca]")
+        .forEach(
+            elemento => {
+                elemento.addEventListener(
+                    "click",
+                    fecharBiblioteca
+                );
+            }
+        );
+
+    els.buscaBiblioteca.addEventListener(
+        "input",
         () => {
-            processarSvg(
-                SVG_EXEMPLO,
-                "exemplo-chaveiro.svg"
-            );
+            bibliotecaBusca =
+                els.buscaBiblioteca.value;
+
+            renderizarBiblioteca();
+        }
+    );
+
+    document.addEventListener(
+        "keydown",
+        evento => {
+            if (
+                evento.key === "Escape" &&
+                !els.modalBiblioteca.hidden
+            ) {
+                fecharBiblioteca();
+            }
         }
     );
 

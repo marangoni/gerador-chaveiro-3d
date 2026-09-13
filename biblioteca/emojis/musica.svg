@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 90 38"
+    width="90mm"
+    height="38mm"
+    role="img"
+    aria-label="Chaveiro Música">
+
+    <path
+        d="M 10 3
+H 82
+Q 87 3 87 8
+V 30
+Q 87 35 82 35
+H 10
+Q 3 35 3 28
+V 10
+Q 3 3 10 3
+Z
+
+M 12 15
+a 4 4 0 1 0 0 8
+a 4 4 0 1 0 0 -8
+Z"
+        fill="#FF0000"
+        fill-rule="evenodd"
+        stroke="none"
+    />
+
+    <path d="M48 8 H63 V12 H52 V25
+C52 29 48 31 44 29
+C40 27 41 22 46 21
+C47 21 48 21 48 22 Z
+M63 12 V22
+C63 26 59 28 55 26
+C51 24 52 19 57 18
+C59 18 61 18 63 19 Z" fill="#0000FF" fill-rule="evenodd" stroke="none"/>
+</svg>

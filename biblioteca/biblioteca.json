@@ -1,0 +1,401 @@
+{
+  "versao": 1,
+  "titulo": "Biblioteca de Chaveiros 3D",
+  "total": 30,
+  "categorias": [
+    "Todos",
+    "Nomes",
+    "Emojis",
+    "Maker",
+    "Personagens"
+  ],
+  "itens": [
+    {
+      "id": "nome-ana",
+      "nome": "Ana",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/ana.svg",
+      "tags": [
+        "nome",
+        "texto",
+        "personalizado"
+      ],
+      "descricao": "Exemplo com o nome Ana convertido integralmente em paths.",
+      "furado": false
+    },
+    {
+      "id": "nome-davi",
+      "nome": "Davi",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/davi.svg",
+      "tags": [
+        "nome",
+        "texto",
+        "personalizado"
+      ],
+      "descricao": "Exemplo com o nome Davi convertido integralmente em paths.",
+      "furado": false
+    },
+    {
+      "id": "nome-felix",
+      "nome": "Felix",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/felix.svg",
+      "tags": [
+        "nome",
+        "texto",
+        "personalizado"
+      ],
+      "descricao": "Exemplo com o nome Felix convertido integralmente em paths.",
+      "furado": false
+    },
+    {
+      "id": "nome-lucas",
+      "nome": "Lucas",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/lucas.svg",
+      "tags": [
+        "nome",
+        "texto",
+        "personalizado"
+      ],
+      "descricao": "Exemplo com o nome Lucas convertido integralmente em paths.",
+      "furado": false
+    },
+    {
+      "id": "nome-maria",
+      "nome": "Maria",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/maria.svg",
+      "tags": [
+        "nome",
+        "texto",
+        "personalizado"
+      ],
+      "descricao": "Exemplo com o nome Maria convertido integralmente em paths.",
+      "furado": false
+    },
+    {
+      "id": "nome-pedro",
+      "nome": "Pedro",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/pedro.svg",
+      "tags": [
+        "nome",
+        "texto",
+        "personalizado"
+      ],
+      "descricao": "Exemplo com o nome Pedro convertido integralmente em paths.",
+      "furado": false
+    },
+    {
+      "id": "nome-sofia",
+      "nome": "Sofia",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/sofia.svg",
+      "tags": [
+        "nome",
+        "texto",
+        "personalizado"
+      ],
+      "descricao": "Exemplo com o nome Sofia convertido integralmente em paths.",
+      "furado": false
+    },
+    {
+      "id": "nome-gabriel",
+      "nome": "Gabriel",
+      "categoria": "Nomes",
+      "arquivo": "biblioteca/nomes/gabriel.svg",
+      "tags": [
+        "nome",
+        "texto",
+        "personalizado"
+      ],
+      "descricao": "Exemplo com o nome Gabriel convertido integralmente em paths.",
+      "furado": false
+    },
+    {
+      "id": "emoji-sorriso",
+      "nome": "Sorriso",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis/sorriso.svg",
+      "tags": [
+        "emoji",
+        "feliz",
+        "rosto"
+      ],
+      "descricao": "Emoji circular simples, ótimo para alto-relevo.",
+      "furado": false
+    },
+    {
+      "id": "emoji-coracao",
+      "nome": "Coração",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis/coracao.svg",
+      "tags": [
+        "emoji",
+        "amor",
+        "coracao"
+      ],
+      "descricao": "Coração clássico para relevo ou vazado.",
+      "furado": true
+    },
+    {
+      "id": "emoji-estrela",
+      "nome": "Estrela",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis/estrela.svg",
+      "tags": [
+        "emoji",
+        "estrela",
+        "favorito"
+      ],
+      "descricao": "Estrela de cinco pontas.",
+      "furado": true
+    },
+    {
+      "id": "emoji-sol",
+      "nome": "Sol",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis/sol.svg",
+      "tags": [
+        "emoji",
+        "sol",
+        "dia"
+      ],
+      "descricao": "Sol estilizado com oito raios.",
+      "furado": false
+    },
+    {
+      "id": "emoji-lua",
+      "nome": "Lua",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis/lua.svg",
+      "tags": [
+        "emoji",
+        "lua",
+        "noite"
+      ],
+      "descricao": "Lua crescente estilizada.",
+      "furado": true
+    },
+    {
+      "id": "emoji-musica",
+      "nome": "Música",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis/musica.svg",
+      "tags": [
+        "emoji",
+        "musica",
+        "nota"
+      ],
+      "descricao": "Notas musicais estilizadas.",
+      "furado": false
+    },
+    {
+      "id": "emoji-raio",
+      "nome": "Raio",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis/raio.svg",
+      "tags": [
+        "emoji",
+        "energia",
+        "raio"
+      ],
+      "descricao": "Símbolo de energia em formato de raio.",
+      "furado": true
+    },
+    {
+      "id": "emoji-bola",
+      "nome": "Bola",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis/bola.svg",
+      "tags": [
+        "emoji",
+        "esporte",
+        "bola"
+      ],
+      "descricao": "Bola esportiva estilizada.",
+      "furado": false
+    },
+    {
+      "id": "emoji-flor",
+      "nome": "Flor",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis/flor.svg",
+      "tags": [
+        "emoji",
+        "flor",
+        "natureza"
+      ],
+      "descricao": "Flor geométrica com seis pétalas.",
+      "furado": false
+    },
+    {
+      "id": "emoji-cafe",
+      "nome": "Café",
+      "categoria": "Emojis",
+      "arquivo": "biblioteca/emojis/cafe.svg",
+      "tags": [
+        "emoji",
+        "cafe",
+        "caneca"
+      ],
+      "descricao": "Caneca de café estilizada.",
+      "furado": false
+    },
+    {
+      "id": "maker-engrenagem",
+      "nome": "Engrenagem",
+      "categoria": "Maker",
+      "arquivo": "biblioteca/maker/engrenagem.svg",
+      "tags": [
+        "maker",
+        "engrenagem",
+        "mecanica"
+      ],
+      "descricao": "Engrenagem para projetos de automação.",
+      "furado": true
+    },
+    {
+      "id": "maker-chave",
+      "nome": "Chave de Boca",
+      "categoria": "Maker",
+      "arquivo": "biblioteca/maker/chave.svg",
+      "tags": [
+        "maker",
+        "ferramenta",
+        "chave"
+      ],
+      "descricao": "Ícone de ferramenta para laboratório Maker.",
+      "furado": false
+    },
+    {
+      "id": "maker-circuito",
+      "nome": "Circuito",
+      "categoria": "Maker",
+      "arquivo": "biblioteca/maker/circuito.svg",
+      "tags": [
+        "maker",
+        "eletronica",
+        "circuito"
+      ],
+      "descricao": "Circuito integrado estilizado.",
+      "furado": false
+    },
+    {
+      "id": "maker-cubo3d",
+      "nome": "Cubo 3D",
+      "categoria": "Maker",
+      "arquivo": "biblioteca/maker/cubo3d.svg",
+      "tags": [
+        "maker",
+        "3d",
+        "cubo"
+      ],
+      "descricao": "Símbolo de modelagem e impressão 3D.",
+      "furado": false
+    },
+    {
+      "id": "maker-martelo",
+      "nome": "Martelo",
+      "categoria": "Maker",
+      "arquivo": "biblioteca/maker/martelo.svg",
+      "tags": [
+        "maker",
+        "ferramenta",
+        "martelo"
+      ],
+      "descricao": "Martelo estilizado para projetos Maker.",
+      "furado": false
+    },
+    {
+      "id": "maker-pcb",
+      "nome": "Placa PCB",
+      "categoria": "Maker",
+      "arquivo": "biblioteca/maker/pcb.svg",
+      "tags": [
+        "maker",
+        "pcb",
+        "eletronica"
+      ],
+      "descricao": "Placa eletrônica estilizada.",
+      "furado": false
+    },
+    {
+      "id": "personagem-alien",
+      "nome": "Alien",
+      "categoria": "Personagens",
+      "arquivo": "biblioteca/personagens/alien.svg",
+      "tags": [
+        "personagem",
+        "alien",
+        "espaco"
+      ],
+      "descricao": "Personagem alienígena original.",
+      "furado": false
+    },
+    {
+      "id": "personagem-fantasma",
+      "nome": "Fantasma",
+      "categoria": "Personagens",
+      "arquivo": "biblioteca/personagens/fantasma.svg",
+      "tags": [
+        "personagem",
+        "fantasma"
+      ],
+      "descricao": "Fantasma geométrico original.",
+      "furado": false
+    },
+    {
+      "id": "personagem-monstrinho",
+      "nome": "Monstrinho",
+      "categoria": "Personagens",
+      "arquivo": "biblioteca/personagens/monstrinho.svg",
+      "tags": [
+        "personagem",
+        "monstro"
+      ],
+      "descricao": "Monstrinho com chifres, criado para a biblioteca.",
+      "furado": false
+    },
+    {
+      "id": "personagem-dinossauro",
+      "nome": "Dinossauro",
+      "categoria": "Personagens",
+      "arquivo": "biblioteca/personagens/dinossauro.svg",
+      "tags": [
+        "personagem",
+        "dinossauro"
+      ],
+      "descricao": "Dinossauro estilizado original.",
+      "furado": false
+    },
+    {
+      "id": "personagem-raposa",
+      "nome": "Raposa",
+      "categoria": "Personagens",
+      "arquivo": "biblioteca/personagens/raposa.svg",
+      "tags": [
+        "personagem",
+        "raposa",
+        "animal"
+      ],
+      "descricao": "Rosto de raposa geométrico.",
+      "furado": false
+    },
+    {
+      "id": "personagem-astronauta",
+      "nome": "Astronauta",
+      "categoria": "Personagens",
+      "arquivo": "biblioteca/personagens/astronauta.svg",
+      "tags": [
+        "personagem",
+        "astronauta",
+        "espaco"
+      ],
+      "descricao": "Capacete de astronauta original.",
+      "furado": false
+    }
+  ]
+}

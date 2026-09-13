@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 90 38"
+    width="90mm"
+    height="38mm"
+    role="img"
+    aria-label="Chaveiro Martelo">
+
+    <path
+        d="M 10 3
+H 82
+Q 87 3 87 8
+V 30
+Q 87 35 82 35
+H 10
+Q 3 35 3 28
+V 10
+Q 3 3 10 3
+Z
+
+M 12 15
+a 4 4 0 1 0 0 8
+a 4 4 0 1 0 0 -8
+Z"
+        fill="#FF0000"
+        fill-rule="evenodd"
+        stroke="none"
+    />
+
+    <path d="M42 9 H60 L65 14 L60 19 H55 L49 25 L54 30 L50 34 L38 22 L42 18 H47 L52 13 H42 Z" fill="#0000FF" fill-rule="evenodd" stroke="none"/>
+</svg>

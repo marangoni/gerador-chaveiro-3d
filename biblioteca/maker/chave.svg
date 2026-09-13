@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 90 38"
+    width="90mm"
+    height="38mm"
+    role="img"
+    aria-label="Chaveiro Chave de Boca">
+
+    <path
+        d="M 10 3
+H 82
+Q 87 3 87 8
+V 30
+Q 87 35 82 35
+H 10
+Q 3 35 3 28
+V 10
+Q 3 3 10 3
+Z
+
+M 12 15
+a 4 4 0 1 0 0 8
+a 4 4 0 1 0 0 -8
+Z"
+        fill="#FF0000"
+        fill-rule="evenodd"
+        stroke="none"
+    />
+
+    <path d="M43 8 C48 6 52 8 54 12 L49 17 L59 27 L54 32 L44 22 L39 27 L35 23 L40 18 C37 13 39 9 43 8 Z" fill="#0000FF" fill-rule="evenodd" stroke="none"/>
+</svg>

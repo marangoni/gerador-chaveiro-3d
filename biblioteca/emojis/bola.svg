@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 90 38"
+    width="90mm"
+    height="38mm"
+    role="img"
+    aria-label="Chaveiro Bola">
+
+    <path
+        d="M 10 3
+H 82
+Q 87 3 87 8
+V 30
+Q 87 35 82 35
+H 10
+Q 3 35 3 28
+V 10
+Q 3 3 10 3
+Z
+
+M 12 15
+a 4 4 0 1 0 0 8
+a 4 4 0 1 0 0 -8
+Z"
+        fill="#FF0000"
+        fill-rule="evenodd"
+        stroke="none"
+    />
+
+    <circle cx="55" cy="19" r="12" fill="#0000FF" stroke="none"/><polygon points="55,11 60,15 58,21 52,21 50,15" fill="#0000FF" stroke="none"/>
+</svg>
